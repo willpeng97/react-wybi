@@ -14,6 +14,7 @@ import {
   FaArrowLeft,
   FaArrowRight
 } from 'react-icons/fa';
+import { IoIosArrowForward } from 'react-icons/io';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -114,6 +115,7 @@ const Sidebar: React.FC = () => {
                       <span className="me-2">{item.icon}</span>
                       {!isCollapsed && item.text}
                     </div>
+                    {isCollapsed && <IoIosArrowForward />}
                     {!isCollapsed && (
                       expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
                     )}
