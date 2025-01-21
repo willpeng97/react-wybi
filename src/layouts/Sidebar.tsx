@@ -64,8 +64,10 @@ const Sidebar: React.FC = () => {
         style={{ height: '60px' }}
       >
         <div className="d-flex align-items-center">
-          <FaChartLine
-            size={24}
+          <img
+            src="/brand.png"
+            alt="Logo"
+            height={24}
             style={{ display: isCollapsed ? 'none' : 'block' }}
           />
           {!isCollapsed && <span className="ms-2">Weyu</span>}
