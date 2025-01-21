@@ -2,36 +2,33 @@
 import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  BsSpeedometer2,
-  BsCart3,
-  BsBarChart,
-  BsGraphUp,
-  BsGear,
-  BsPlug,
-  BsChevronDown,
-  BsChevronUp
-} from 'react-icons/bs';
+import {
+  FaTachometerAlt,
+  FaShoppingCart,
+  FaChartBar,
+  FaChartLine,
+  FaCogs,
+  FaPlug,
+  FaChevronDown,
+  FaChevronUp,
+  FaArrowLeft,
+  FaArrowRight
+} from 'react-icons/fa';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const [isReportsOpen, setIsReportsOpen] = useState(
     location.pathname.startsWith('/reports')
   );
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
   const menuItems = [
-    { 
-      icon: <BsSpeedometer2 />, 
-      text: 'Dashboard', 
-      path: '/' 
-    },
-    { 
-      icon: <BsCart3 />, 
-      text: 'Orders', 
-      path: '/orders' 
-    },
-    { 
-      icon: <BsBarChart />,
+    { icon: <FaTachometerAlt />, text: 'Dashboard', path: '/' },
+    { icon: <FaShoppingCart />, text: 'Orders', path: '/orders' },
+    {
+      icon: <FaChartBar />,
       text: 'Reports',
       path: '/reports',
       subItems: [
@@ -39,16 +36,8 @@ const Sidebar: React.FC = () => {
         { text: 'Traffic', path: '/reports/traffic' }
       ]
     },
-    { 
-      icon: <BsPlug />, 
-      text: 'Integrations', 
-      path: '/integrations' 
-    },
-    { 
-      icon: <BsGear />, 
-      text: 'Setting', 
-      path: '/setting' 
-    }
+    { icon: <FaPlug />, text: 'Integrations', path: '/integrations' },
+    { icon: <FaCogs />, text: 'Setting', path: '/setting' }
   ];
 
   const isActive = (path: string) => {
@@ -59,12 +48,37 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="sidebar bg-white border-end" style={{ width: '250px', minHeight: '100vh' }}>
-      <div className="p-3 border-bottom">
-        <img src="/brand.png" alt="Logo" height="30" />
-        Weyu
+    <div
+      className={`sidebar bg-white border-end d-flex flex-column ${
+        isCollapsed ? 'collapsed' : ''
+      }`}
+      style={{
+        width: isCollapsed ? '80px' : '240px',
+        minHeight: '100vh',
+        transition: 'width 0.3s ease'
+      }}
+    >
+      {/* Header */}
+      <div
+        className="p-3 border-bottom d-flex justify-content-between align-items-center"
+        style={{ height: '60px' }}
+      >
+        <div className="d-flex align-items-center">
+          <FaChartLine
+            size={24}
+            style={{ display: isCollapsed ? 'none' : 'block' }}
+          />
+          {!isCollapsed && <span className="ms-2">Weyu</span>}
+        </div>
+        <button
+          onClick={toggleCollapse}
+          style={{ border: 'none', background: 'none' }}
+        >
+          {isCollapsed ? <FaArrowRight /> : <FaArrowLeft />}
+        </button>
       </div>
-      
+
+      {/* Navigation */}
       <Nav className="flex-column p-3">
         {menuItems.map((item, index) => (
           <div key={index}>
@@ -79,12 +93,14 @@ const Sidebar: React.FC = () => {
                 >
                   <div className="d-flex align-items-center">
                     <span className="me-2">{item.icon}</span>
-                    {item.text}
+                    {!isCollapsed && item.text}
                   </div>
-                  {isReportsOpen ? <BsChevronUp /> : <BsChevronDown />}
+                  {!isCollapsed && (
+                    isReportsOpen ? <FaChevronUp /> : <FaChevronDown />
+                  )}
                 </Nav.Link>
-                
-                {isReportsOpen && (
+
+                {isReportsOpen && !isCollapsed && (
                   <div className="ms-4 mb-2">
                     {item.subItems.map((subItem, subIndex) => (
                       <Nav.Link
@@ -96,7 +112,7 @@ const Sidebar: React.FC = () => {
                         }`}
                       >
                         <span className="me-2">
-                          <BsGraphUp />
+                          <FaChartLine />
                         </span>
                         {subItem.text}
                       </Nav.Link>
@@ -114,7 +130,7 @@ const Sidebar: React.FC = () => {
                 }`}
               >
                 <span className="me-2">{item.icon}</span>
-                {item.text}
+                {!isCollapsed && item.text}
               </Nav.Link>
             )}
           </div>
