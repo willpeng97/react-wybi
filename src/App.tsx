@@ -1,11 +1,17 @@
-import { MainLayout } from "./layouts/MainLayout";
+// App.tsx
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './Router';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/global.css';
+import './styles/dashboard.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <MainLayout />
-    </>
-  )
-}
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
