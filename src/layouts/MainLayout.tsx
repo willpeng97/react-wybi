@@ -203,6 +203,24 @@ const Sidebar: React.FC = () => {
   );
 };
 
+// 主要內容區域
+interface PageContainerProps {
+  children: React.ReactNode;
+}
+const PageContainer: React.FC<PageContainerProps> = ({ children }) => {
+  return (
+    <div
+      className="p-4"
+      style={{
+        marginLeft: 'var(--sidebar-width)',
+        transition: 'margin-left 0.3s ease',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 // Footer
 const Footer = () => {
   return (
@@ -218,22 +236,14 @@ const Footer = () => {
 
 const MainLayout: React.FC = () => {
   return (
-    <div className="d-flex min-vh-100">
+    <>
+      <Navbar />
       <Sidebar />
-      <div className="flex-grow-1">
-        <Navbar />
-          <div
-            className="p-4"
-            style={{
-              marginLeft:'var(--sidebar-width)',
-              transition: 'margin-left 0.3s ease'
-            }}
-          >
-            <Outlet />
-            <Footer />
-          </div>
-      </div>
-    </div>
+      <PageContainer>
+        <Outlet />
+        <Footer />
+      </PageContainer>
+    </>
   );
 };
 
