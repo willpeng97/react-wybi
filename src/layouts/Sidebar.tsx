@@ -115,8 +115,7 @@ const Sidebar: React.FC = () => {
                       <span className="me-2">{item.icon}</span>
                       {!isCollapsed && item.text}
                     </div>
-                    {isCollapsed && <IoIosArrowForward />}
-                    {!isCollapsed && (
+                    {isCollapsed ? <IoIosArrowForward /> :(
                       expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
                     )}
                   </Nav.Link>
