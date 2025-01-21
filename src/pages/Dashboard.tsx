@@ -1,7 +1,7 @@
 // pages/Dashboard.tsx
 import React from 'react';
 import { Row, Col, ProgressBar } from 'react-bootstrap';
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import ReactECharts from 'echarts-for-react';
 import { BsArrowUp } from 'react-icons/bs';
 import DashboardCard from '../components/DashboardCard';
 import WeeklySalesChart from '../components/WeeklySalesChart';
@@ -16,6 +16,112 @@ const salesData = [
   { name: 'Jan 15', value: 30 },
   { name: 'Jan 17', value: 70 },
 ];
+
+const TotalOrderChart: React.FC = () => {
+  const option = {
+    grid: {
+      top: '5%',
+      right: '1%',
+      left: '1%',
+      bottom: '5%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: salesData.map(item => item.name),
+      show: false
+    },
+    yAxis: {
+      type: 'value',
+      show: false
+    },
+    series: [
+      {
+        data: salesData.map(item => item.value),
+        type: 'line',
+        smooth: true,
+        symbol: 'none',
+        lineStyle: {
+          color: '#2c7be5',
+          width: 2
+        },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'rgba(44, 123, 229, 0.2)'
+              },
+              {
+                offset: 1,
+                color: 'rgba(44, 123, 229, 0)'
+              }
+            ]
+          }
+        }
+      }
+    ],
+    tooltip: {
+      trigger: 'axis',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      formatter: (params: any) => {
+        const dataIndex = params[0].dataIndex;
+        return `${salesData[dataIndex].name}: ${salesData[dataIndex].value}K`;
+      }
+    }
+  };
+
+  return (
+    <ReactECharts
+      option={option}
+      style={{ height: '100px', width: '100%' }}
+      opts={{ renderer: 'svg' }}
+    />
+  );
+};
+
+const MarketShareChart: React.FC = () => {
+  const option = {
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['60%', '80%'],
+        center: ['50%', '50%'],
+        data: [
+          { value: 40, name: 'Samsung', itemStyle: { color: '#2c7be5' } },
+          { value: 35, name: 'Huawei', itemStyle: { color: '#27bcfd' } },
+          { value: 25, name: 'Apple', itemStyle: { color: '#6c757d' } }
+        ],
+        label: {
+          show: false
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+
+  return (
+    <ReactECharts
+      option={option}
+      style={{ height: '120px', width: '100%' }}
+      opts={{ renderer: 'svg' }}
+    />
+  );
+};
 
 const Dashboard: React.FC = () => {
   return (
@@ -43,17 +149,7 @@ const Dashboard: React.FC = () => {
                 <BsArrowUp /> 13.6%
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={100}>
-              <LineChart data={salesData}>
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#2c7be5"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <TotalOrderChart />
           </DashboardCard>
         </Col>
 
@@ -62,6 +158,7 @@ const Dashboard: React.FC = () => {
           <DashboardCard title="Market Share">
             <div className="text-center">
               <h3 className="mb-0">26M</h3>
+              <MarketShareChart />
               <div className="d-flex justify-content-center mt-3">
                 <div className="px-3 border-end">
                   <div className="dot bg-primary"></div>
