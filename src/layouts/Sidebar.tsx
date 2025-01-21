@@ -17,12 +17,17 @@ import {
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const [isReportsOpen, setIsReportsOpen] = useState(
-    location.pathname.startsWith('/reports')
-  );
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
+
+  const toggleExpand = (key: string) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
 
   const menuItems = [
     { icon: <FaTachometerAlt />, text: 'Dashboard', path: '/' },
@@ -34,6 +39,15 @@ const Sidebar: React.FC = () => {
       subItems: [
         { text: 'Sales', path: '/reports/sales' },
         { text: 'Traffic', path: '/reports/traffic' }
+      ]
+    },
+    {
+      icon: <FaChartBar />,
+      text: 'Reports2',
+      path: '/reports2',
+      subItems: [
+        { text: 'Sales2', path: '/reports2/sales2' },
+        { text: 'Traffic2', path: '/reports2/traffic2' }
       ]
     },
     { icon: <FaPlug />, text: 'Integrations', path: '/integrations' },
@@ -82,61 +96,67 @@ const Sidebar: React.FC = () => {
 
       {/* Navigation */}
       <Nav className="flex-column p-3">
-        {menuItems.map((item, index) => (
-          <div key={index}>
-            {item.subItems ? (
-              // Menu item with submenu
-              <div>
+        {menuItems.map((item, index) => {
+          const itemKey = `${item.path}_${index}`
+          
+          return(
+            <div key={index}>
+              {item.subItems ? (
+                // Menu item with submenu
+                <div>
+                  <Nav.Link
+                    className={`d-flex align-items-center justify-content-between mb-2 ${
+                      isActive(item.path) ? 'active' : ''
+                    }`}
+                    onClick={() => toggleExpand(itemKey)}
+                  >
+                    <div className="d-flex align-items-center">
+                      <span className="me-2">{item.icon}</span>
+                      {!isCollapsed && item.text}
+                    </div>
+                    {!isCollapsed && (
+                      expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
+                    )}
+                  </Nav.Link>
+
+                  {expandedItems[itemKey] && !isCollapsed && (
+                    <div className="ms-4 mb-2">
+                      {item.subItems.map((subItem, subIndex) => (
+                        <Nav.Link
+                          key={subIndex}
+                          as={Link}
+                          to={subItem.path}
+                          className={`d-flex align-items-center mb-2 ${
+                            location.pathname === subItem.path ? 'active' : ''
+                          }`}
+                        >
+                          <span className="me-2">
+                            <FaChartLine />
+                          </span>
+                          {subItem.text}
+                        </Nav.Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                // Regular menu item
                 <Nav.Link
-                  className={`d-flex align-items-center justify-content-between mb-2 ${
+                  as={Link}
+                  to={item.path}
+                  className={`d-flex align-items-center mb-2 ${
                     isActive(item.path) ? 'active' : ''
                   }`}
-                  onClick={() => setIsReportsOpen(!isReportsOpen)}
                 >
-                  <div className="d-flex align-items-center">
-                    <span className="me-2">{item.icon}</span>
-                    {!isCollapsed && item.text}
-                  </div>
-                  {!isCollapsed && (
-                    isReportsOpen ? <FaChevronUp /> : <FaChevronDown />
-                  )}
+                  <span className="me-2">{item.icon}</span>
+                  {!isCollapsed && item.text}
                 </Nav.Link>
+              )}
+            </div>
+          )
+        }
 
-                {isReportsOpen && !isCollapsed && (
-                  <div className="ms-4 mb-2">
-                    {item.subItems.map((subItem, subIndex) => (
-                      <Nav.Link
-                        key={subIndex}
-                        as={Link}
-                        to={subItem.path}
-                        className={`d-flex align-items-center mb-2 ${
-                          location.pathname === subItem.path ? 'active' : ''
-                        }`}
-                      >
-                        <span className="me-2">
-                          <FaChartLine />
-                        </span>
-                        {subItem.text}
-                      </Nav.Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              // Regular menu item
-              <Nav.Link
-                as={Link}
-                to={item.path}
-                className={`d-flex align-items-center mb-2 ${
-                  isActive(item.path) ? 'active' : ''
-                }`}
-              >
-                <span className="me-2">{item.icon}</span>
-                {!isCollapsed && item.text}
-              </Nav.Link>
-            )}
-          </div>
-        ))}
+        )}
       </Nav>
     </div>
   );
