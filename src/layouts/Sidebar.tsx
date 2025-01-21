@@ -1,6 +1,6 @@
 // layouts/Sidebar.tsx
 import React, { useState } from 'react';
-import { Nav } from 'react-bootstrap';
+import { Collapse, Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import {
   FaTachometerAlt,
@@ -120,24 +120,26 @@ const Sidebar: React.FC = () => {
                     )}
                   </Nav.Link>
 
-                  {expandedItems[itemKey] && !isCollapsed && (
-                    <div className="ms-4 mb-2">
-                      {item.subItems.map((subItem, subIndex) => (
-                        <Nav.Link
-                          key={subIndex}
-                          as={Link}
-                          to={subItem.path}
-                          className={`d-flex align-items-center mb-2 ${
-                            location.pathname === subItem.path ? 'active' : ''
-                          }`}
-                        >
-                          <span className="me-2">
-                            {subItem.icon}
-                          </span>
-                          {subItem.text}
-                        </Nav.Link>
-                      ))}
-                    </div>
+                  {!isCollapsed && (
+                    <Collapse in={expandedItems[itemKey]}>
+                      <div className="ms-4">
+                        {item.subItems.map((subItem, subIndex) => (
+                          <Nav.Link
+                            key={subIndex}
+                            as={Link}
+                            to={subItem.path}
+                            className={`d-flex align-items-center mb-2 ${
+                              location.pathname === subItem.path ? 'active' : ''
+                            }`}
+                          >
+                            <span className="me-2">
+                              {subItem.icon}
+                            </span>
+                            {subItem.text}
+                          </Nav.Link>
+                        ))}
+                      </div>
+                    </Collapse>
                   )}
                 </div>
               ) : (
