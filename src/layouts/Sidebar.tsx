@@ -21,7 +21,10 @@ const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
-  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+    document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
+  };
 
   const toggleExpand = (key: string) => {
     setExpandedItems((prev) => ({
@@ -68,14 +71,15 @@ const Sidebar: React.FC = () => {
         isCollapsed ? 'collapsed' : ''
       }`}
       style={{
-        width: isCollapsed ? '80px' : '240px',
+        width: 'var(--sidebar-width)',
         minHeight: '100vh',
-        transition: 'width 0.3s ease'
+        transition: 'width 0.3s ease',
+        overflow: 'hidden'
       }}
     >
       {/* Header */}
       <div
-        className="p-3 border-bottom d-flex justify-content-between align-items-center"
+        className="p-3 d-flex justify-content-between align-items-center"
         style={{ height: '48px' }}
       >
         <div className="d-flex align-items-center">

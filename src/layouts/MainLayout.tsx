@@ -12,9 +12,15 @@ const MainLayout: React.FC = () => {
       <Sidebar />
       <div className="flex-grow-1">
         <Navbar />
-        <main className="p-4 bg-light">
-          <Outlet />
-        </main>
+          <div
+            className="p-4"
+            style={{
+              marginLeft:'var(--sidebar-width)',
+              transition: 'margin-left 0.3s ease'
+            }}
+          >
+            <Outlet />
+          </div>
         <Footer />
       </div>
     </div>
