@@ -1,81 +1,124 @@
 // layouts/Sidebar.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  BsSpeedometer2, 
-  BsGraphUp, 
-  BsPeople, 
+  BsSpeedometer2,
   BsCart3,
-  BsBook,
-  BsKanban,
-  BsChat,
-  BsEnvelope,
-  BsCalendar3,
-  BsGlobe
+  BsBarChart,
+  BsGraphUp,
+  BsGear,
+  BsPlug,
+  BsChevronDown,
+  BsChevronUp
 } from 'react-icons/bs';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const [isReportsOpen, setIsReportsOpen] = useState(
+    location.pathname.startsWith('/reports')
+  );
 
   const menuItems = [
-    { icon: <BsSpeedometer2 />, text: 'Dashboard', path: '/', badge: 'Default' },
-    { icon: <BsGraphUp />, text: 'Analytics', path: '/analytics' },
-    { icon: <BsPeople />, text: 'CRM', path: '/crm' },
-    { icon: <BsCart3 />, text: 'E commerce', path: '/ecommerce' },
-    { icon: <BsBook />, text: 'LMS', path: '/lms', badge: 'New' },
-    { icon: <BsKanban />, text: 'Management', path: '/management' },
-    { icon: <BsChat />, text: 'Support desk', path: '/support', badge: 'New' },
+    { 
+      icon: <BsSpeedometer2 />, 
+      text: 'Dashboard', 
+      path: '/' 
+    },
+    { 
+      icon: <BsCart3 />, 
+      text: 'Orders', 
+      path: '/orders' 
+    },
+    { 
+      icon: <BsBarChart />,
+      text: 'Reports',
+      path: '/reports',
+      subItems: [
+        { text: 'Sales', path: '/reports/sales' },
+        { text: 'Traffic', path: '/reports/traffic' }
+      ]
+    },
+    { 
+      icon: <BsPlug />, 
+      text: 'Integrations', 
+      path: '/integrations' 
+    },
+    { 
+      icon: <BsGear />, 
+      text: 'Setting', 
+      path: '/setting' 
+    }
   ];
 
-  const secondaryItems = [
-    { icon: <BsCalendar3 />, text: 'Calendar', path: '/calendar' },
-    { icon: <BsChat />, text: 'Chat', path: '/chat' },
-    { icon: <BsEnvelope />, text: 'Email', path: '/email' },
-    { icon: <BsGlobe />, text: 'Social', path: '/social' },
-  ];
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <div className="sidebar bg-white border-end" style={{ width: '250px', minHeight: '100vh' }}>
       <div className="p-3 border-bottom">
-        <img src="/brand.png" alt="Falcon Logo" height="30" />
+        <img src="/brand.png" alt="Logo" height="30" />
         Weyu
       </div>
       
       <Nav className="flex-column p-3">
-        <div className="mb-4">
-          {menuItems.map((item, index) => (
-            <Nav.Link 
-              as={Link}
-              to={item.path}
-              key={index}
-              className={`d-flex align-items-center mb-2 ${location.pathname === item.path ? 'active' : ''}`}
-            >
-              <span className="me-2">{item.icon}</span>
-              {item.text}
-              {item.badge && (
-                <span className={`ms-auto badge ${item.badge === 'New' ? 'bg-success' : 'bg-primary'}`}>
-                  {item.badge}
-                </span>
-              )}
-            </Nav.Link>
-          ))}
-        </div>
-
-        <div className="mb-4">
-          <small className="text-muted text-uppercase">App</small>
-          {secondaryItems.map((item, index) => (
-            <Nav.Link 
-              as={Link}
-              to={item.path}
-              key={index}
-              className={`d-flex align-items-center mb-2 ${location.pathname === item.path ? 'active' : ''}`}
-            >
-              <span className="me-2">{item.icon}</span>
-              {item.text}
-            </Nav.Link>
-          ))}
-        </div>
+        {menuItems.map((item, index) => (
+          <div key={index}>
+            {item.subItems ? (
+              // Menu item with submenu
+              <div>
+                <Nav.Link
+                  className={`d-flex align-items-center justify-content-between mb-2 ${
+                    isActive(item.path) ? 'active' : ''
+                  }`}
+                  onClick={() => setIsReportsOpen(!isReportsOpen)}
+                >
+                  <div className="d-flex align-items-center">
+                    <span className="me-2">{item.icon}</span>
+                    {item.text}
+                  </div>
+                  {isReportsOpen ? <BsChevronUp /> : <BsChevronDown />}
+                </Nav.Link>
+                
+                {isReportsOpen && (
+                  <div className="ms-4 mb-2">
+                    {item.subItems.map((subItem, subIndex) => (
+                      <Nav.Link
+                        key={subIndex}
+                        as={Link}
+                        to={subItem.path}
+                        className={`d-flex align-items-center mb-2 ${
+                          location.pathname === subItem.path ? 'active' : ''
+                        }`}
+                      >
+                        <span className="me-2">
+                          <BsGraphUp />
+                        </span>
+                        {subItem.text}
+                      </Nav.Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Regular menu item
+              <Nav.Link
+                as={Link}
+                to={item.path}
+                className={`d-flex align-items-center mb-2 ${
+                  isActive(item.path) ? 'active' : ''
+                }`}
+              >
+                <span className="me-2">{item.icon}</span>
+                {item.text}
+              </Nav.Link>
+            )}
+          </div>
+        ))}
       </Nav>
     </div>
   );

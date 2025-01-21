@@ -1,16 +1,15 @@
 // App.tsx
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import Router from './Router';
+import { RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import './styles/dashboard.css';
+import './styles/sidebar.css';
+import { router } from './Router';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <RouterProvider router={router}/>
   );
 };
 
