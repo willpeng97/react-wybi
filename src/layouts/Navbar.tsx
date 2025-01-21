@@ -5,7 +5,7 @@ import { BsBell, BsGear, BsGrid3X3Gap, BsPerson } from 'react-icons/bs';
 
 const Navbar: React.FC = () => {
   return (
-    <BsNavbar className="bg-white border-bottom px-4 py-2">
+    <BsNavbar className="bg-white border-bottom px-4 py-2" style={{height:'48px'}}>
       <Form className="d-flex flex-grow-1 mx-4">
 
       </Form>

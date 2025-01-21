@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
       {/* Header */}
       <div
         className="p-3 border-bottom d-flex justify-content-between align-items-center"
-        style={{ height: '60px' }}
+        style={{ height: '48px' }}
       >
         <div className="d-flex align-items-center">
           <img
