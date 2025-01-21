@@ -37,8 +37,8 @@ const Sidebar: React.FC = () => {
       text: 'Reports',
       path: '/reports',
       subItems: [
-        { text: 'Sales', path: '/reports/sales' },
-        { text: 'Traffic', path: '/reports/traffic' }
+        { text: 'Sales', path: '/reports/sales' ,icon: <FaTachometerAlt />},
+        { text: 'Traffic', path: '/reports/traffic',icon: <FaChartBar /> }
       ]
     },
     {
@@ -46,8 +46,8 @@ const Sidebar: React.FC = () => {
       text: 'Reports2',
       path: '/reports2',
       subItems: [
-        { text: 'Sales2', path: '/reports2/sales2' },
-        { text: 'Traffic2', path: '/reports2/traffic2' }
+        { text: 'Sales2', path: '/reports2/sales2',icon: <FaTachometerAlt /> },
+        { text: 'Traffic2', path: '/reports2/traffic2',icon: <FaChartLine /> }
       ]
     },
     { icon: <FaPlug />, text: 'Integrations', path: '/integrations' },
@@ -131,7 +131,7 @@ const Sidebar: React.FC = () => {
                           }`}
                         >
                           <span className="me-2">
-                            <FaChartLine />
+                            {subItem.icon}
                           </span>
                           {subItem.text}
                         </Nav.Link>
