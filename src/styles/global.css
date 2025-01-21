@@ -12,8 +12,6 @@ body {
   top: 0;
   left: 0;
   height: 100vh;
-  overflow-y: auto;
-  z-index: 1000;
 }
 
 .sidebar .nav-link {
@@ -31,21 +29,23 @@ body {
   color: #2c7be5;
 }
 
-main {
-  margin-left: var(--sidebar-width);
+/* 卡片 */
+.card {
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-2px);
 }
 
-.form-control {
-  border-color: #e9ecef;
-}
 
-.form-control:focus {
-  border-color: #2c7be5;
-  box-shadow: none;
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 4px;
 }
-
-.badge {
-  font-size: 0.75em;
-  padding: 0.25em 0.5em;
-  border-radius: 0.375rem;
+.storage-bars .progress {
+  /* height: 6px; */
+  margin-top: 4px;
 }
