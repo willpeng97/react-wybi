@@ -26,11 +26,11 @@ body {
 }
 
 .sidebar .nav-link:hover {
-  background-color: #f8f9fa;
+  background-color: #eef0f3;
 }
 
 .sidebar .nav-link.active {
-  background-color: #e9ecef;
+  background-color: #e7e7eb;
   color: #2c7be5;
 }
 

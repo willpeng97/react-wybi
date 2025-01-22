@@ -124,13 +124,8 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
   const location = useLocation();
-  // const [sidebarOpen, setSidebarOpen] = useState(false);
+  
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
-
-  // const toggleSidebar = () => {
-  //   setSidebarOpen(!sidebarOpen)
-  //   document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '240px' : '80px')
-  // };
 
   const toggleExpand = (key: string) => {
     setExpandedItems((prev) => ({
