@@ -18,10 +18,10 @@ import {  RiMenuLine, RiMenuUnfold4Line } from 'react-icons/ri';
 
 // 上方導航列
 interface NavbarProps {
-  isCollapsed: boolean
-  toggleCollapse: () => void
+  sidebarOpen: boolean
+  toggleSidebar: () => void
 }
-const Navbar: React.FC<NavbarProps> = ({isCollapsed, toggleCollapse}) => {
+const Navbar: React.FC<NavbarProps> = ({sidebarOpen, toggleSidebar}) => {
   return (
     <BsNavbar
       className="bg-white border-bottom sticky-top"
@@ -31,10 +31,10 @@ const Navbar: React.FC<NavbarProps> = ({isCollapsed, toggleCollapse}) => {
         {/* 左側部分 */}
         <Button
           variant="light"
-          onClick={toggleCollapse}
+          onClick={toggleSidebar}
           style={{ border: 'none', background: 'none' }}
         >
-          {isCollapsed ? <RiMenuLine size={24} /> : <RiMenuUnfold4Line size={24} />}
+          {sidebarOpen ? <RiMenuLine size={24} /> : <RiMenuUnfold4Line size={24} />}
         </Button>
         <BsNavbar.Brand href="#home" className="d-flex align-items-center ms-2">
           <img
@@ -74,16 +74,16 @@ const Navbar: React.FC<NavbarProps> = ({isCollapsed, toggleCollapse}) => {
 
 // 左側摺疊選單
 interface SidebarProps {
-  isCollapsed: boolean
+  sidebarOpen: boolean
 }
-const Sidebar: React.FC<SidebarProps> = ({isCollapsed}) => {
+const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
   const location = useLocation();
-  // const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
-  // const toggleCollapse = () => {
-  //   setIsCollapsed(!isCollapsed)
-  //   document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
+  // const toggleSidebar = () => {
+  //   setSidebarOpen(!sidebarOpen)
+  //   document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '240px' : '80px')
   // };
 
   const toggleExpand = (key: string) => {
@@ -144,14 +144,14 @@ const Sidebar: React.FC<SidebarProps> = ({isCollapsed}) => {
                   >
                     <div className="d-flex align-items-center">
                       <span className="me-2">{item.icon}</span>
-                      {!isCollapsed && item.text}
+                      {!sidebarOpen && item.text}
                     </div>
-                    {isCollapsed ? <IoIosArrowForward /> :(
+                    {sidebarOpen ? <IoIosArrowForward /> :(
                       expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
                     )}
                   </Nav.Link>
 
-                  {!isCollapsed && (
+                  {!sidebarOpen && (
                     <Collapse in={expandedItems[itemKey]}>
                       <div className="ms-4">
                         {item.subItems.map((subItem, subIndex) => (
@@ -183,7 +183,7 @@ const Sidebar: React.FC<SidebarProps> = ({isCollapsed}) => {
                   }`}
                 >
                   <span className="me-2">{item.icon}</span>
-                  {!isCollapsed && item.text}
+                  {!sidebarOpen && item.text}
                 </Nav.Link>
               )}
             </div>
@@ -228,17 +228,17 @@ const Footer = () => {
 }
 
 const MainLayout: React.FC = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-    document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+    document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '240px' : '80px')
   };
 
   return (
     <>
-      <Navbar isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
-      <Sidebar isCollapsed={isCollapsed}/>
+      <Navbar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}/>
+      <Sidebar sidebarOpen={sidebarOpen}/>
       <PageContainer>
         <Outlet />
         <Footer />
