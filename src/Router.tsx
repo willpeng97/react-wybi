@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,11 @@ export const router = createBrowserRouter([
       {
         path: '/setting',
         Component: () => <div>setting</div>, // 對應 "Setting"
-      }
+      },
+      {
+        path: '*',
+        Component: NotFound,
+      },
     ],
   },
 ]);
