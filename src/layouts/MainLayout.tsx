@@ -93,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({sidebarOpen, toggleSidebar}) => {
         >
           {sidebarOpen ? <RiMenuLine size={24} /> : <RiMenuUnfold4Line size={24} />}
         </Button>
-        <BsNavbar.Brand href="#home" className="d-flex align-items-center ms-2">
+        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center ms-2">
           <img
             src="/brand.png"
             alt="Brand Logo"
@@ -147,8 +147,8 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
       text: 'Reports',
       path: '/reports',
       subItems: [
-        { text: 'Sales', path: '/reports/sales' ,icon: <FaTachometerAlt />},
-        { text: 'Traffic', path: '/reports/traffic',icon: <FaChartBar /> }
+        { icon: <FaTachometerAlt />, text: 'Sales', path: '/reports/sales'},
+        { icon: <FaChartBar /> , text: 'Traffic', path: '/reports/traffic'}
       ]
     },
     {
@@ -156,8 +156,8 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
       text: 'Reports2',
       path: '/reports2',
       subItems: [
-        { text: 'Sales2', path: '/reports2/sales2',icon: <FaTachometerAlt /> },
-        { text: 'Traffic2', path: '/reports2/traffic2',icon: <FaChartLine /> }
+        { icon: <FaTachometerAlt />, text: 'Sales2', path: '/reports2/sales2'},
+        { icon: <FaChartLine />, text: 'Traffic2', path: '/reports2/traffic2'}
       ]
     },
     { icon: <FaPlug />, text: 'Integrations', path: '/integrations' },
@@ -168,7 +168,8 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
     if (path === '/') {
       return location.pathname === '/';
     }
-    return location.pathname.startsWith(path);
+    return location.pathname.split('/')[1] === path.split('/')[1];
+    // return location.pathname.startsWith(path);
   };
 
   return (
