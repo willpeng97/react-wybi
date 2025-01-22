@@ -25,7 +25,7 @@ const AccountMenu: React.FC = () =>{
   return(
     <Dropdown align="end">
       {/* 頭像觸發器 */}
-      <Dropdown.Toggle as="button" className="p-0 border-0 bg-transparent">
+      <Dropdown.Toggle as="button" size='lg' className="p-0 border-0 bg-transparent accountMenu">
         <FaUserCircle size={24} className="me-2" />
       </Dropdown.Toggle>
 

@@ -54,3 +54,8 @@ body {
   /* height: 6px; */
   margin-top: 4px;
 }
+
+/* 隱藏下拉選單的箭頭 */
+.accountMenu.dropdown-toggle::after {
+  display: none;
+}
