@@ -135,28 +135,28 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
   };
 
   const menuItems = [
-    { icon: <FaTachometerAlt />, text: 'Dashboard', path: '/' },
-    { icon: <FaShoppingCart />, text: 'Orders', path: '/orders' },
+    { icon: <FaTachometerAlt/>, text: 'Dashboard', path: '/' },
+    { icon: <FaShoppingCart/>, text: 'Orders', path: '/orders' },
     {
-      icon: <FaChartBar />,
+      icon: <FaChartBar/>,
       text: 'Reports',
       path: '/reports',
       subItems: [
-        { icon: <FaTachometerAlt />, text: 'Sales', path: '/reports/sales'},
-        { icon: <FaChartBar /> , text: 'Traffic', path: '/reports/traffic'}
+        { icon: <FaTachometerAlt/>, text: 'Sales', path: '/reports/sales'},
+        { icon: <FaChartBar/> , text: 'Traffic', path: '/reports/traffic'}
       ]
     },
     {
-      icon: <FaChartBar />,
+      icon: <FaChartBar/>,
       text: 'Reports2',
       path: '/reports2',
       subItems: [
-        { icon: <FaTachometerAlt />, text: 'Sales2', path: '/reports2/sales2'},
-        { icon: <FaChartLine />, text: 'Traffic2', path: '/reports2/traffic2'}
+        { icon: <FaTachometerAlt/>, text: 'Sales2', path: '/reports2/sales2'},
+        { icon: <FaChartLine/>, text: 'Traffic2', path: '/reports2/traffic2'}
       ]
     },
-    { icon: <FaPlug />, text: 'Integrations', path: '/integrations' },
-    { icon: <FaCogs />, text: 'Setting', path: '/setting' }
+    { icon: <FaPlug/>, text: 'Integrations', path: '/integrations' },
+    { icon: <FaCogs/>, text: 'Setting', path: '/setting' }
   ];
 
   const isActive = (path: string) => {
@@ -169,7 +169,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
 
   return (
     <div className={"sidebar bg-white border-end d-flex flex-column"}>
-      <Nav className="flex-column p-3">
+      <Nav className="flex-column p-1">
         {menuItems.map((item, index) => {
           const itemKey = `${item.path}_${index}`
           
@@ -179,7 +179,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                 // Menu item with submenu
                 <div>
                   <Nav.Link
-                    className={`d-flex align-items-center justify-content-between mb-2 ${
+                    className={`d-flex align-items-center justify-content-between mb-1 ${
                       isActive(item.path) ? 'active' : ''
                     }`}
                     onClick={() => toggleExpand(itemKey)}
@@ -201,7 +201,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                             key={subIndex}
                             as={Link}
                             to={subItem.path}
-                            className={`d-flex align-items-center mb-2 ${
+                            className={`d-flex align-items-center mb-1 ${
                               location.pathname === subItem.path ? 'active' : ''
                             }`}
                           >
@@ -220,11 +220,11 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                 <Nav.Link
                   as={Link}
                   to={item.path}
-                  className={`d-flex align-items-center mb-2 ${
+                  className={`d-flex align-items-center mb-1 ${
                     isActive(item.path) ? 'active' : ''
                   }`}
                 >
-                  <span className="me-2">{item.icon}</span>
+                  <span className={sidebarOpen ? "me-2" : "w-100"} style={{width: "24px", height: "auto"}}>{item.icon}</span>
                   {sidebarOpen && item.text}
                 </Nav.Link>
               )}
