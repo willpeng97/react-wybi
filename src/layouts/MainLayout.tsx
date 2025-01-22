@@ -19,9 +19,13 @@ import {
 } from 'react-icons/fa';
 import { IoIosArrowForward } from 'react-icons/io';
 import {  RiMenuLine, RiMenuUnfold4Line } from 'react-icons/ri';
+import { useAuth } from "../auth/AuthProvider";
 
 // 用戶頭像
 const AccountMenu: React.FC = () =>{
+  const { logout } = useAuth(); // 透過 useAuth 提供的登出方法
+  const handleLogout = () => logout();
+
   return(
     <Dropdown align="end">
       {/* 頭像觸發器 */}
@@ -55,7 +59,10 @@ const AccountMenu: React.FC = () =>{
           <span>Settings</span>
         </Dropdown.Item>
 
-        <Dropdown.Item className="d-flex align-items-center gap-2">
+        <Dropdown.Item 
+          className="d-flex align-items-center gap-2" 
+          onClick={handleLogout} // 綁定登出事件
+        >
           <FaSignOutAlt className="text-secondary" />
           <span>Logout</span>
         </Dropdown.Item>
