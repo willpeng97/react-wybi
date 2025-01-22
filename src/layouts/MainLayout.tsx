@@ -10,11 +10,59 @@ import {
   FaPlug,
   FaChevronDown,
   FaChevronUp,
+  FaCrown,
+  FaUser,
+  FaCommentDots,
+  FaCog,
+  FaSignOutAlt,
   FaUserCircle,
 } from 'react-icons/fa';
 import { IoIosArrowForward } from 'react-icons/io';
 import {  RiMenuLine, RiMenuUnfold4Line } from 'react-icons/ri';
 
+// 用戶頭像
+const AccountMenu: React.FC = () =>{
+  return(
+    <Dropdown align="end">
+      {/* 頭像觸發器 */}
+      <Dropdown.Toggle as="button" className="p-0 border-0 bg-transparent">
+        <FaUserCircle size={24} className="me-2" />
+      </Dropdown.Toggle>
+
+      {/* 下拉選單內容 */}
+      <Dropdown.Menu className="w-48">
+        <Dropdown.Item className="d-flex align-items-center gap-2">
+          <FaCrown className="text-secondary" />
+          <span>Go Pro</span>
+        </Dropdown.Item>
+
+        <Dropdown.Divider />
+
+        <Dropdown.Item className="d-flex align-items-center gap-2">
+          <FaUser className="text-secondary" />
+          <span>Profile & account</span>
+        </Dropdown.Item>
+
+        <Dropdown.Item className="d-flex align-items-center gap-2">
+          <FaCommentDots className="text-secondary" />
+          <span>Feedback</span>
+        </Dropdown.Item>
+
+        <Dropdown.Divider />
+
+        <Dropdown.Item className="d-flex align-items-center gap-2">
+          <FaCog className="text-secondary" />
+          <span>Settings</span>
+        </Dropdown.Item>
+
+        <Dropdown.Item className="d-flex align-items-center gap-2">
+          <FaSignOutAlt className="text-secondary" />
+          <span>Logout</span>
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
 
 // 上方導航列
 interface NavbarProps {
@@ -22,6 +70,15 @@ interface NavbarProps {
   toggleSidebar: () => void
 }
 const Navbar: React.FC<NavbarProps> = ({sidebarOpen, toggleSidebar}) => {
+  const [currentTime, setCurrentTime] = React.useState('');
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString(undefined, { timeZoneName: 'short' }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <BsNavbar
       className="bg-white border-bottom sticky-top"
@@ -48,23 +105,12 @@ const Navbar: React.FC<NavbarProps> = ({sidebarOpen, toggleSidebar}) => {
 
         {/* 右側部分 */}
         <BsNavbar.Toggle aria-controls="navbar-content" />
-        <BsNavbar.Collapse id="navbar-content" className="justify-content-end">
+        <BsNavbar.Collapse id="navbar-content" className="justify-content-end gap-2">
           <Nav>
-            <Dropdown align="end">
-              <Dropdown.Toggle
-                as="button"
-                className="btn btn-light d-flex align-items-center border-0"
-              >
-                <FaUserCircle size={24} className="me-2" />
-                Account
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#profile">Profile</Dropdown.Item>
-                <Dropdown.Item href="#settings">Settings</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#logout">Logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {currentTime}
+          </Nav>
+          <Nav>
+            <AccountMenu />
           </Nav>
         </BsNavbar.Collapse>
       </Container>
@@ -197,10 +243,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
 };
 
 // 主要內容區域
-interface PageContainerProps {
-  children: React.ReactNode;
-}
-const PageContainer: React.FC<PageContainerProps> = ({ children }) => {
+const PageContainer: React.FC<{children: React.ReactNode}> = ({ children }) => {
   return (
     <div
       className="p-4"
