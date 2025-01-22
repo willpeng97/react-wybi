@@ -224,7 +224,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                     isActive(item.path) ? 'active' : ''
                   }`}
                 >
-                  <span className={sidebarOpen ? "me-2" : "w-100"} style={{width: "24px", height: "auto"}}>{item.icon}</span>
+                  <span className={`me-2`}>{item.icon}</span>
                   {sidebarOpen && item.text}
                 </Nav.Link>
               )}
