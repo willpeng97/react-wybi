@@ -91,7 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({sidebarOpen, toggleSidebar}) => {
           onClick={toggleSidebar}
           style={{ border: 'none', background: 'none' }}
         >
-          {sidebarOpen ? <RiMenuLine size={24} /> : <RiMenuUnfold4Line size={24} />}
+          { sidebarOpen ? <RiMenuUnfold4Line size={24} /> : <RiMenuLine size={24} /> }
         </Button>
         <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center ms-2">
           <img
@@ -124,7 +124,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
   const location = useLocation();
-  
+
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
   const toggleExpand = (key: string) => {
@@ -186,14 +186,14 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                   >
                     <div className="d-flex align-items-center">
                       <span className="me-2">{item.icon}</span>
-                      {!sidebarOpen && item.text}
+                      {sidebarOpen && item.text}
                     </div>
-                    {sidebarOpen ? <IoIosArrowForward /> :(
+                    {!sidebarOpen ? <IoIosArrowForward /> :(
                       expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
                     )}
                   </Nav.Link>
 
-                  {!sidebarOpen && (
+                  {sidebarOpen && (
                     <Collapse in={expandedItems[itemKey]}>
                       <div className="ms-4">
                         {item.subItems.map((subItem, subIndex) => (
@@ -225,7 +225,7 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                   }`}
                 >
                   <span className="me-2">{item.icon}</span>
-                  {!sidebarOpen && item.text}
+                  {sidebarOpen && item.text}
                 </Nav.Link>
               )}
             </div>
@@ -267,11 +267,11 @@ const Footer = () => {
 }
 
 const MainLayout: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
-    document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '240px' : '80px')
+    document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '80px' : '240px')
   };
 
   return (
