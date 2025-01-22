@@ -1,45 +1,57 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import MainLayout from "./layouts/MainLayout";
-import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import LoginPage from "./auth/LoginPage"; // 假设已创建 LoginPage 组件
+
+// 使用 lazy 加载
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 export const router = createBrowserRouter([
   {
-    Component: MainLayout,
+    path: "/login",
+    Component: LoginPage, // LoginPage 是单独的页面，不嵌套在 MainLayout 下
+  },
+  {
+    Component: MainLayout, // MainLayout 管理所有主路由
     children: [
       {
-        path: '/',
-        Component: Dashboard,
-        index:true
+        path: "/",
+        Component: (props) => (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Dashboard {...props} />
+          </Suspense>
+        ),
+        index: true,
       },
       {
-        path: '/orders',
-        Component: () => <div>orders</div>, // 對應 "Orders"
+        path: "/orders",
+        Component: () => <div>orders</div>,
       },
       {
-        path: '/reports',
-        Component: () => <div>reports</div>, // 對應 "Reports"
+        path: "/reports",
+        Component: () => <div>reports</div>,
         children: [
           {
-            path: '/reports/sales',
-            Component: () => <div>sales</div>, // 對應 "Sales"
+            path: "/reports/sales",
+            Component: () => <div>sales</div>,
           },
           {
-            path: '/reports/traffic',
-            Component: () => <div>traffic</div>, // 對應 "Traffic"
+            path: "/reports/traffic",
+            Component: () => <div>traffic</div>,
           },
         ],
       },
       {
-        path: '/integrations',
-        Component: () => <div>integrations</div>, // 對應 "Integrations"
+        path: "/integrations",
+        Component: () => <div>integrations</div>,
       },
       {
-        path: '/setting',
-        Component: () => <div>setting</div>, // 對應 "Setting"
+        path: "/setting",
+        Component: () => <div>setting</div>,
       },
       {
-        path: '*',
+        path: "*",
         Component: NotFound,
       },
     ],

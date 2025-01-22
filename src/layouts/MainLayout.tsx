@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar as BsNavbar, Button, Collapse,Container,Dropdown,Nav } from 'react-bootstrap';
+import { Breadcrumb, Navbar as BsNavbar, Button, Collapse,Container,Dropdown,Nav } from 'react-bootstrap';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import {
   FaTachometerAlt,
@@ -253,11 +253,51 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
   );
 };
 
+// 麵包屑導覽
+const Breadcrumbs: React.FC = () => {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter((x) => x); // 拆分路径
+
+  return (
+    <Breadcrumb>
+      <Breadcrumb.Item 
+        active={location.pathname === "/"}
+        key="/" 
+        linkAs={Link} 
+        linkProps={{ to: '/' }} 
+      >
+        Home
+      </Breadcrumb.Item>
+      {pathnames.map((value, index) => {
+        const to = `/${pathnames.slice(0, index + 1).join('/')}`; // 构建每个路径的 URL
+        const isLast = index === pathnames.length - 1; // 判断是否是最后一项
+
+        return isLast ? (
+          <Breadcrumb.Item 
+            active 
+            key={to} 
+          >
+            {value.charAt(0).toUpperCase() + value.slice(1)} {/* 首字母大写 */}
+          </Breadcrumb.Item>
+        ) : (
+          <Breadcrumb.Item 
+            key={to} 
+            linkAs={Link} 
+            linkProps={{ to }} 
+          >
+            {value.charAt(0).toUpperCase() + value.slice(1)} {/* 首字母大写 */}
+          </Breadcrumb.Item>
+        );
+      })}
+    </Breadcrumb>
+  );
+};
+
 // 主要內容區域
 const PageContainer: React.FC<{children: React.ReactNode}> = ({ children }) => {
   return (
     <div
-      className="p-4"
+      className="p-3 pt-1"
       style={{
         marginLeft: 'var(--sidebar-width)',
         transition: 'margin-left 0.3s ease',
@@ -294,6 +334,7 @@ const MainLayout: React.FC = () => {
       <Navbar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}/>
       <Sidebar sidebarOpen={sidebarOpen}/>
       <PageContainer>
+        <Breadcrumbs />
         <Outlet />
         <Footer />
       </PageContainer>
