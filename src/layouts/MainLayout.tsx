@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar as BsNavbar, Collapse,Nav, Form } from 'react-bootstrap';
-import { BsBell, BsGear, BsGrid3X3Gap, BsPerson } from 'react-icons/bs';
+import { Navbar as BsNavbar, Button, Collapse,Container,Dropdown,Nav } from 'react-bootstrap';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import {
   FaTachometerAlt,
@@ -11,54 +10,81 @@ import {
   FaPlug,
   FaChevronDown,
   FaChevronUp,
-  FaArrowLeft,
-  FaArrowRight
+  FaUserCircle,
 } from 'react-icons/fa';
 import { IoIosArrowForward } from 'react-icons/io';
+import {  RiMenuLine, RiMenuUnfold4Line } from 'react-icons/ri';
 
 
 // 上方導航列
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  isCollapsed: boolean
+  toggleCollapse: () => void
+}
+const Navbar: React.FC<NavbarProps> = ({isCollapsed, toggleCollapse}) => {
   return (
     <BsNavbar
-      className="bg-white border-bottom px-4 py-2 sticky-top" 
-      style={{
-        height:'var(--navbar-height)',
-        // marginLeft:'var(--sidebar-width)',
-        // transition: 'margin-left 0.3s ease'
-      }}
+      className="bg-white border-bottom sticky-top"
+      style={{ height: 'var(--navbar-height)' }}
     >
-      <Form className="d-flex flex-grow-1 mx-4">
-        123
-      </Form>
-      <Nav className="align-items-center">
-        <Nav.Link href="#" className="px-2">
-          <BsGear />
-        </Nav.Link>
-        <Nav.Link href="#" className="px-2">
-          <BsBell />
-        </Nav.Link>
-        <Nav.Link href="#" className="px-2">
-          <BsGrid3X3Gap />
-        </Nav.Link>
-        <Nav.Link href="#" className="px-2">
-          <BsPerson />
-        </Nav.Link>
-      </Nav>
+      <Container fluid>
+        {/* 左側部分 */}
+        <Button
+          variant="light"
+          onClick={toggleCollapse}
+          style={{ border: 'none', background: 'none' }}
+        >
+          {isCollapsed ? <RiMenuLine size={24} /> : <RiMenuUnfold4Line size={24} />}
+        </Button>
+        <BsNavbar.Brand href="#home" className="d-flex align-items-center ms-2">
+          <img
+            src="/brand.png"
+            alt="Brand Logo"
+            height={24}
+            className="me-2"
+          />
+          Weyu
+        </BsNavbar.Brand>
+
+        {/* 右側部分 */}
+        <BsNavbar.Toggle aria-controls="navbar-content" />
+        <BsNavbar.Collapse id="navbar-content" className="justify-content-end">
+          <Nav>
+            <Dropdown align="end">
+              <Dropdown.Toggle
+                as="button"
+                className="btn btn-light d-flex align-items-center border-0"
+              >
+                <FaUserCircle size={24} className="me-2" />
+                Account
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+                <Dropdown.Item href="#settings">Settings</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#logout">Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Nav>
+        </BsNavbar.Collapse>
+      </Container>
     </BsNavbar>
   );
 };
 
 // 左側摺疊選單
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isCollapsed: boolean
+}
+const Sidebar: React.FC<SidebarProps> = ({isCollapsed}) => {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-    document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
-  };
+  // const toggleCollapse = () => {
+  //   setIsCollapsed(!isCollapsed)
+  //   document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
+  // };
 
   const toggleExpand = (key: string) => {
     setExpandedItems((prev) => ({
@@ -100,31 +126,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div
-      className={`sidebar bg-white border-end d-flex flex-column ${
-        isCollapsed ? 'collapsed' : ''
-      }`}
-    >
-      {/* Header */}
-      <div className="p-3 d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <img
-            src="/brand.png"
-            alt="Logo"
-            height={24}
-            style={{ display: isCollapsed ? 'none' : 'block' }}
-          />
-          {!isCollapsed && <span className="ms-2">Weyu</span>}
-        </div>
-        <button
-          onClick={toggleCollapse}
-          style={{ border: 'none', background: 'none' }}
-        >
-          {isCollapsed ? <FaArrowRight /> : <FaArrowLeft />}
-        </button>
-      </div>
-
-      {/* Navigation */}
+    <div className={"sidebar bg-white border-end d-flex flex-column"}>
       <Nav className="flex-column p-3">
         {menuItems.map((item, index) => {
           const itemKey = `${item.path}_${index}`
@@ -226,10 +228,17 @@ const Footer = () => {
 }
 
 const MainLayout: React.FC = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+    document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '240px' : '80px')
+  };
+
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      <Navbar isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
+      <Sidebar isCollapsed={isCollapsed}/>
       <PageContainer>
         <Outlet />
         <Footer />
