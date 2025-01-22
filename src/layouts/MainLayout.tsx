@@ -133,6 +133,16 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
       [key]: !prev[key]
     }));
   };
+  const IconWrapper = ({ icon }: { icon: JSX.Element }) => {
+    return(
+      <span
+        className="d-flex justify-content-center align-items-center me-2"
+        style={{width: '24px', height: '24px'}}
+      >
+        {React.cloneElement(icon, { size: 20 })}
+      </span>
+    )
+  }
 
   const menuItems = [
     { icon: <FaTachometerAlt/>, text: 'Dashboard', path: '/' },
@@ -179,18 +189,20 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                 // Menu item with submenu
                 <div>
                   <Nav.Link
-                    className={`d-flex align-items-center justify-content-between mb-1 ${
+                    className={`d-flex align-items-center justify-content-between mb-1 px-3${
                       isActive(item.path) ? 'active' : ''
                     }`}
                     onClick={() => toggleExpand(itemKey)}
                   >
                     <div className="d-flex align-items-center">
-                      <span className="me-2">{item.icon}</span>
+                      <IconWrapper icon={item.icon}/>
                       {sidebarOpen && item.text}
                     </div>
-                    {!sidebarOpen ? <IoIosArrowForward /> :(
-                      expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
-                    )}
+                    <div style={{position: 'absolute', right: '8%'}}>
+                      {!sidebarOpen ? <IoIosArrowForward /> :(
+                        expandedItems[itemKey] ? <FaChevronUp /> : <FaChevronDown />
+                      )}
+                    </div>
                   </Nav.Link>
 
                   {sidebarOpen && (
@@ -205,9 +217,12 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                               location.pathname === subItem.path ? 'active' : ''
                             }`}
                           >
-                            <span className="me-2">
-                              {subItem.icon}
-                            </span>
+                            {/* <span
+                              className="d-flex justify-content-center align-items-center me-2"
+                              style={{width: '24px', height: '24px'}}
+                            > */}
+                              <IconWrapper icon={subItem.icon}/>
+                            {/* </span> */}
                             {subItem.text}
                           </Nav.Link>
                         ))}
@@ -220,11 +235,11 @@ const Sidebar: React.FC<SidebarProps> = ({sidebarOpen}) => {
                 <Nav.Link
                   as={Link}
                   to={item.path}
-                  className={`d-flex align-items-center mb-1 ${
+                  className={`d-flex align-items-center mb-1 px-3 ${
                     isActive(item.path) ? 'active' : ''
                   }`}
                 >
-                  <span className={`me-2`}>{item.icon}</span>
+                  <IconWrapper icon={item.icon}/>
                   {sidebarOpen && item.text}
                 </Nav.Link>
               )}
@@ -271,7 +286,7 @@ const MainLayout: React.FC = () => {
   
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
-    document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '80px' : '240px')
+    document.documentElement.style.setProperty('--sidebar-width', sidebarOpen ? '72px' : '240px')
   };
 
   return (
