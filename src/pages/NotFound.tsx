@@ -12,7 +12,8 @@ const NotFound: React.FC = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center vh-100 bg-light text-center"
+      className="d-flex flex-column align-items-center justify-content-center bg-light text-center"
+      style={{height: '75vh'}}
     >
       <h1 className="display-1 text-dark">404</h1>
       <p className="fs-4 text-secondary">Page Not Found</p>
