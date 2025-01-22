@@ -1,6 +1,7 @@
 /* styles/global.css */
 :root {
   --sidebar-width: 240px;
+  --navbar-height: 48px;
 }
 
 body {
@@ -10,9 +11,12 @@ body {
 
 .sidebar {
   position: fixed;
-  top: 0;
+  top: var(--navbar-height);
   left: 0;
   height: 100vh;
+  width: var(--sidebar-width);
+  transition: width 0.3s ease;
+  overflow: hidden
 }
 
 .sidebar .nav-link {

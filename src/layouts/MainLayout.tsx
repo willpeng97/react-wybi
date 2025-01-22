@@ -23,9 +23,9 @@ const Navbar: React.FC = () => {
     <BsNavbar
       className="bg-white border-bottom px-4 py-2 sticky-top" 
       style={{
-        height:'48px',
-        marginLeft:'var(--sidebar-width)',
-        transition: 'margin-left 0.3s ease'
+        height:'var(--navbar-height)',
+        // marginLeft:'var(--sidebar-width)',
+        // transition: 'margin-left 0.3s ease'
       }}
     >
       <Form className="d-flex flex-grow-1 mx-4">
@@ -104,18 +104,9 @@ const Sidebar: React.FC = () => {
       className={`sidebar bg-white border-end d-flex flex-column ${
         isCollapsed ? 'collapsed' : ''
       }`}
-      style={{
-        width: 'var(--sidebar-width)',
-        minHeight: '100vh',
-        transition: 'width 0.3s ease',
-        overflow: 'hidden'
-      }}
     >
       {/* Header */}
-      <div
-        className="p-3 d-flex justify-content-between align-items-center"
-        style={{ height: '48px' }}
-      >
+      <div className="p-3 d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
           <img
             src="/brand.png"
