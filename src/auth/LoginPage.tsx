@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
     <Container
       fluid
       className="d-flex justify-content-center align-items-center vh-100"
-      style={{background:"#cae6f2"}}
+      style={{ backgroundImage: 'url(/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <Card style={{ width: "24rem", padding: "1rem" }}>
         <Card.Body>
