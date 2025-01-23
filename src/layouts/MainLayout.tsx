@@ -170,8 +170,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
   };
 
   const menuItems = [
+    { kind: "header", title: "Main items"},
     { icon: <FaTachometerAlt />, text: "Dashboard", path: "/" },
     { icon: <FaShoppingCart />, text: "Orders", path: "/orders" },
+    { kind: "divider"},
+    { kind: "header", title: "Query"},
     {
       icon: <FaChartBar />,
       text: "Reports",
@@ -190,6 +193,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
         { icon: <FaChartLine />, text: "Traffic2", path: "/reports2/traffic2" },
       ],
     },
+    { kind: "divider"},
+    { kind: "header", title: "System"},
     { icon: <FaPlug />, text: "Integrations", path: "/integrations" },
     { icon: <FaCogs />, text: "Setting", path: "/setting" },
   ];
@@ -206,8 +211,25 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
     <div className={"sidebar bg-white border-end d-flex flex-column"}>
       <Nav className="flex-column p-1">
         {menuItems.map((item, index) => {
-          const itemKey = `${item.path}_${index}`;
+          if( item.kind === "header"){
+            return (
+              <div
+                style={{
+                  maxHeight: `${sidebarOpen ? "100px" : "0px"}`,
+                  overflow:"hidden",
+                  maxWidth: `${sidebarOpen ? "var(--sidebar-width)" : "0px"}`,
+                  transition: "max-width max-height 0.4s ease"
+                }}
+              >
+                <span className="text-secondary ps-2 fw-bold" style={{fontSize:"0.8rem"}}>{item.title}</span>
+              </div>
+            ) 
+          }
+          if( item.kind === "divider"){
+            return <hr style={{ border: '1px solid #bbb', margin: '8px 0' }} />
+          }
 
+          const itemKey = `${item.path}_${index}`;
           return (
             <div key={index}>
               {item.subItems ? (
@@ -280,12 +302,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                 // Regular menu item
                 <Nav.Link
                   as={Link}
-                  to={item.path}
+                  to={item.path!}
                   className={`d-flex align-items-center mb-1 px-3 ${
-                    isActive(item.path) ? "active" : ""
+                    isActive(item.path!) ? "active" : ""
                   }`}
                 >
-                  <IconWrapper icon={item.icon} />
+                  <IconWrapper icon={item.icon!} />
                   {sidebarOpen && item.text}
                 </Nav.Link>
               )}
