@@ -218,7 +218,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   maxHeight: `${sidebarOpen ? "100px" : "0px"}`,
                   overflow:"hidden",
                   maxWidth: `${sidebarOpen ? "var(--sidebar-width)" : "0px"}`,
-                  transition: "max-width max-height 0.4s ease"
+                  transition: "all 0.3s ease"
                 }}
               >
                 <span className="text-secondary ps-2 fw-bold" style={{fontSize:"0.8rem"}}>{item.title}</span>
@@ -361,7 +361,7 @@ const PageContainer: React.FC<{ children: React.ReactNode }> = ({
       className="p-3 pt-1"
       style={{
         marginLeft: "var(--sidebar-width)",
-        transition: "margin-left 0.3s ease",
+        transition: "all 0.3s ease",
       }}
     >
       {children}
