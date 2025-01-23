@@ -236,7 +236,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                 // Menu item with submenu
                 <div>
                   <Nav.Link
-                    className={`d-flex align-items-center justify-content-between mb-1 px-3${
+                    className={`d-flex align-items-center justify-content-between mb-1 px-3 ${
                       isActive(item.path) ? "active" : ""
                     }`}
                     onClick={() => toggleExpand(itemKey)}
