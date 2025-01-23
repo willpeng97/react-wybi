@@ -211,9 +211,6 @@ const Dashboard: React.FC = () => {
           </DashboardCard>
         </Col>
       </Row>
-      <div className='bg-secondary' style={{height:"800px"}}>
-
-      </div>
     </div>
   );
 };

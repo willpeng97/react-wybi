@@ -16,7 +16,7 @@ body {
   height: 100vh;
   min-width: var(--sidebar-width);
   transition: min-width 0.3s ease;
-  overflow: hidden
+  /* overflow: hidden */
 }
 
 .sidebar .nav-link {
