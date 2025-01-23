@@ -112,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, toggleSidebar }) => {
           to="/"
           className="d-flex align-items-center ms-2"
         >
-          <img src="/brand.png" alt="Brand Logo" height={24} className="me-2" />
+          <img src="brand.png" alt="Brand Logo" height={24} className="me-2" />
           Weyu
         </BsNavbar.Brand>
 

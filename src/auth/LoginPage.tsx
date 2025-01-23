@@ -32,12 +32,12 @@ const LoginPage: React.FC = () => {
     <Container
       fluid
       className="d-flex justify-content-center align-items-center vh-100"
-      style={{ backgroundImage: 'url(/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{ backgroundImage: 'url(background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <Card style={{ width: "24rem", padding: "1rem" }}>
         <Card.Body>
           <div className="flex flex-col mb-3 w-full justify-center text-center">
-            <img src="/brand.png" alt="LOGO" style={{height:"48px"}} />
+            <img src="brand.png" alt="LOGO" style={{height:"48px"}} />
             <h5>WeyuBI</h5>
             <small>Welcome back, please log in.</small>
           </div>
