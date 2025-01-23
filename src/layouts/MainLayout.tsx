@@ -258,11 +258,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   {/* 當 sidebar 收起時，使用 Dropdown */}
                   {!sidebarOpen && (
                     <Dropdown show={expandedItems[itemKey]} onToggle={() => toggleExpand(itemKey)} style={{ position: 'relative' }}>
-                      <Dropdown.Menu style={{ 
-                        position: 'absolute', 
-                        left: '100%', 
-                        top: '-48px', 
-                      }}>
+                      <Dropdown.Menu style={{ left: '100%', top: '-48px', }}>
                         {item.subItems.map((subItem, subIndex) => (
                           <Dropdown.Item
                             key={subIndex}
@@ -382,12 +378,12 @@ const MainLayout: React.FC = () => {
   return (
     <>
       <Navbar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-      <Sidebar sidebarOpen={sidebarOpen} />
       <PageContainer>
         <Breadcrumbs />
         <Outlet />
         <Footer />
       </PageContainer>
+      <Sidebar sidebarOpen={sidebarOpen} />
     </>
   );
 };
