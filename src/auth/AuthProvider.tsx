@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextProps {
   isAuthenticated: boolean;
-  login: (email: string, password: string) => void;
+  login: (account: string, password: string) => void;
   logout: () => void;
 }
 
@@ -15,8 +15,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return localStorage.getItem('isAuthenticated') === 'true';
   });
 
-  const login = (email: string, password: string) => {
-    console.log('Logging in with:', email, password);
+  const login = (account: string, password: string) => {
+    console.log('Logging in with:', account, password);
     // 模擬 API 登入成功
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
