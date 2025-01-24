@@ -5,8 +5,22 @@ import NotFound from "./pages/NotFound";
 import LoginPage from "./auth/LoginPage";
 import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import Query from "./pages/Query";
+import ReactTabulator from "./pages/ReactTabulator";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+
+const tableData = [
+  { id: 1, name: "Alice", age: 25, country: "USA" },
+  { id: 2, name: "Bob", age: 30, country: "UK" },
+  { id: 3, name: "Charlie", age: 35, country: "Canada" },
+  { id: 4, name: "Dave", age: 40, country: "Germany" },
+  { id: 5, name: "Eve", age: 28, country: "France" },
+  { id: 6, name: "Frank", age: 22, country: "Italy" },
+  { id: 7, name: "Grace", age: 33, country: "Australia" },
+  { id: 8, name: "Heidi", age: 27, country: "Netherlands" },
+  { id: 9, name: "Ivan", age: 50, country: "USA" },
+  { id: 10, name: "Jack", age: 38, country: "Brazil" },
+];
 
 export const router = createBrowserRouter(
   [
@@ -34,22 +48,20 @@ export const router = createBrowserRouter(
               Component: Query,
             },
             {
-              path: "/reports",
+              path: "/reports", // 獨立的 /reports 路由
               Component: () => <div>reports</div>,
-              children: [
-                {
-                  path: "/reports/sales",
-                  Component: () => <div>sales</div>,
-                },
-                {
-                  path: "/reports/traffic",
-                  Component: () => <div>traffic</div>,
-                },
-              ],
+            },
+            {
+              path: "/reports/sales", // 獨立的 /reports/sales 路由
+              Component: () => <div>sales</div>,
+            },
+            {
+              path: "/reports/traffic", // 獨立的 /reports/traffic 路由
+              Component: () => <div>traffic</div>,
             },
             {
               path: "/integrations",
-              Component: () => <div>integrations</div>,
+              Component: () => <ReactTabulator data={tableData} />,
             },
             {
               path: "/setting",
