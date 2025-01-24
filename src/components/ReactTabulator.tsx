@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TabulatorFull as Tabulator } from "tabulator-tables"; // 引入 Tabulator 庫
 import "tabulator-tables/dist/css/tabulator.min.css"; // 引入 Tabulator 樣式
 
@@ -174,19 +174,6 @@ const tableData = [
   },
 ];
 
-
-// interface TableData {
-//   machineName: string;
-//   utilizationRate: number;
-//   outputQuantity: number;
-//   productInProduction: string;
-//   operators: string;
-// }
-
-// interface TabulatorTableProps {
-//   data: TableData[]; // 從父組件傳入的數據
-// }
-
 const TabulatorTable = () => {
   const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
   const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
@@ -194,12 +181,6 @@ const TabulatorTable = () => {
   useEffect(() => {
     // 在組件加載完成後初始化 Tabulator
     if (el.current) {
-      // tabulatorRef.current = new Tabulator(el.current, {
-      //   data: data, // 將數據與表格綁定
-      //   reactiveData: true, // 啟用數據反應式更新
-      //   layout:"fitDataStretch",
-      //   autoColumns: true, // 自动生成列
-      // });
       tabulatorRef.current = new Tabulator(el.current, {
         height: "550px",
         layout: "fitDataStretch",
@@ -222,6 +203,30 @@ const TabulatorTable = () => {
           { title: "Operators", field: "operators", width: 150 }
         ],
         data: tableData,
+        locale:"zh_TW",
+        langs:{
+          "zh_TW":{
+            "pagination":{
+              "page_size":"Page Size", //label for the page size select element
+              "page_title":"Show Page",//tooltip text for the numeric page button, appears in front of the page number (eg. "Show Page" will result in a tool tip of "Show Page 1" on the page 1 button)
+              "first":"<<", //text for the first page button
+              "first_title":"First Page", //tooltip text for the first page button
+              "last":">>",
+              "last_title":"Last Page",
+              "prev":"<",
+              "prev_title":"Prev Page",
+              "next":">",
+              "next_title":"Next Page",
+              "all":"All",
+              "counter":{
+                  "showing": "Showing",
+                  "of": "of",
+                  "rows": "rows",
+                  "pages": "pages",
+              }
+            },
+          }
+        },
       });
     }
 

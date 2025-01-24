@@ -5,7 +5,7 @@ import NotFound from "./pages/NotFound";
 import LoginPage from "./auth/LoginPage";
 import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import Query from "./pages/Query";
-import ReactTabulator from "./pages/ReactTabulator";
+import ReactTabulator from "./components/ReactTabulator";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
@@ -40,15 +40,15 @@ export const router = createBrowserRouter(
             },
             {
               path: "/reports/sales", // 獨立的 /reports/sales 路由
-              Component: () => <div>sales</div>,
+              Component: ReactTabulator,
             },
             {
               path: "/reports/traffic", // 獨立的 /reports/traffic 路由
-              Component: () => <div>traffic</div>,
+              Component: ReactTabulator,
             },
             {
               path: "/integrations",
-              Component: () => <ReactTabulator />,
+              Component: () => <div>integrations</div>,
             },
             {
               path: "/setting",
