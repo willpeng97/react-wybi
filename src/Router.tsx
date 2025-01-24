@@ -9,19 +9,6 @@ import ReactTabulator from "./pages/ReactTabulator";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
-const tableData = [
-  { id: 1, name: "Alice", age: 25, country: "USA" },
-  { id: 2, name: "Bob", age: 30, country: "UK" },
-  { id: 3, name: "Charlie", age: 35, country: "Canada" },
-  { id: 4, name: "Dave", age: 40, country: "Germany" },
-  { id: 5, name: "Eve", age: 28, country: "France" },
-  { id: 6, name: "Frank", age: 22, country: "Italy" },
-  { id: 7, name: "Grace", age: 33, country: "Australia" },
-  { id: 8, name: "Heidi", age: 27, country: "Netherlands" },
-  { id: 9, name: "Ivan", age: 50, country: "USA" },
-  { id: 10, name: "Jack", age: 38, country: "Brazil" },
-];
-
 export const router = createBrowserRouter(
   [
     {
@@ -61,7 +48,7 @@ export const router = createBrowserRouter(
             },
             {
               path: "/integrations",
-              Component: () => <ReactTabulator data={tableData} />,
+              Component: () => <ReactTabulator />,
             },
             {
               path: "/setting",
