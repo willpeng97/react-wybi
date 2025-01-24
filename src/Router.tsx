@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound";
 import LoginPage from "./auth/LoginPage";
 import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import EqpOverview from "./pages/EqpOverview";
+import ReportQuery from "./pages/ReportQuery";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
@@ -38,8 +39,8 @@ export const router = createBrowserRouter(
               Component: () => <div>reports</div>,
             },
             {
-              path: "/reports/sales", // 獨立的 /reports/sales 路由
-              Component: () => <div>sales</div>,
+              path: "/reports/work-report", // 獨立的 /reports/sales 路由
+              Component: ReportQuery,
             },
             {
               path: "/reports/traffic", // 獨立的 /reports/traffic 路由

@@ -3,16 +3,17 @@ import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables";
 import "tabulator-tables/dist/css/tabulator.min.css"; // 引入 Tabulator 樣式
 
 interface TableData {
-  [key: string]: string | number; // 使得表格數據的字段更加靈活
+  [key: string]: string | number | unknown; // 使得表格數據的字段更加靈活
 }
 
 interface TabulatorTableProps {
-  columns: ColumnDefinition[]; // 使用 Tabulator 的 ColumnDefinition 類型
   rows: TableData[]; // 表格的數據
+  columns?: ColumnDefinition[]; // 使用 Tabulator 的 ColumnDefinition 類型
   height?: string; // 設置表格高度，默認為 550px
+  autoColumns?: boolean
 }
 
-const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height = "550px" }) => {
+const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
   const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
   const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
 
@@ -24,7 +25,8 @@ const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height =
         layout: "fitDataStretch",
         pagination: true,
         reactiveData: true,
-        columns, // 使用傳遞的 columns 屬性
+        columns: columns || [], // 使用傳遞的 columns 屬性
+        autoColumns,
         data: rows, // 使用傳遞的 rows 數據
         locale: "zh_TW",
         langs: {
