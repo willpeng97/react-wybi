@@ -5,7 +5,6 @@ import NotFound from "./pages/NotFound";
 import LoginPage from "./auth/LoginPage";
 import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import Query from "./pages/Query";
-import DataGridTest from "./pages/DataGridTest";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
@@ -50,7 +49,7 @@ export const router = createBrowserRouter(
             },
             {
               path: "/integrations",
-              Component: DataGridTest,
+              Component: () => <div>integrations</div>,
             },
             {
               path: "/setting",
