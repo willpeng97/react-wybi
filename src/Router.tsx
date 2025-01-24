@@ -19,10 +19,10 @@ export const router = createBrowserRouter(
       Component: ProtectedRoute, // 所有需要保護的路由都放在 ProtectedRoute 下
       children: [
         {
+          path: "/",
           Component: MainLayout,
           children: [
             {
-              path: "/",
               Component: (props) => (
                 <Suspense fallback={<div>Loading...</div>}>
                   <Dashboard {...props} />
