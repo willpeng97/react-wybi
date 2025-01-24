@@ -27,7 +27,7 @@ const menuItems = [
     path: "/reports",
     subItems: [
       { icon: <FaTachometerAlt />, text: "work report", path: "/reports/work-report" },
-      { icon: <FaChartBar />, text: "Traffic", path: "/reports/traffic" },
+      { icon: <FaChartBar />, text: "status hist", path: "/reports/status-hist" },
     ],
   },
   {
