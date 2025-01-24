@@ -18,7 +18,7 @@ import { Collapse, Dropdown, Nav } from "react-bootstrap";
 const menuItems = [
   { kind: "header", title: "Main items"},
   { icon: <FaTachometerAlt />, text: "Dashboard", path: "/" },
-  { icon: <FaShoppingCart />, text: "Orders", path: "/orders" },
+  { icon: <FaShoppingCart />, text: "Equipment Overview", path: "/eqp-overview" },
   { kind: "divider"},
   { kind: "header", title: "Query"},
   {
@@ -116,7 +116,13 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   >
                     <div className="d-flex align-items-center">
                       <IconWrapper icon={item.icon} />
-                      {sidebarOpen && item.text}
+                      <span
+                        className="text-truncate"
+                        style={{maxWidth:"calc(var(--sidebar-width) - 96px)"}}
+                        title={item.text}
+                      >
+                        {item.text}
+                      </span>
                     </div>
                     <div style={{ position: "absolute", right: "8%" }}>
                       {!sidebarOpen ? (
@@ -143,7 +149,13 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                             }`}
                           >
                             <IconWrapper icon={subItem.icon} />
-                            {subItem.text}
+                            <span
+                              className="text-truncate"
+                              style={{maxWidth:"calc(var(--sidebar-width) - 112px)"}}
+                              title={subItem.text}
+                            >
+                              {subItem.text}
+                            </span>
                           </Nav.Link>
                         ))}
                       </div>
@@ -181,7 +193,15 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   }`}
                 >
                   <IconWrapper icon={item.icon!} />
-                  {sidebarOpen && item.text}
+                  {sidebarOpen && (
+                    <span
+                      className="text-truncate"
+                      style={{maxWidth:"calc(var(--sidebar-width) - 80px)"}}
+                      title={item.text}
+                    >
+                      {item.text}
+                    </span>
+                  )}
                 </Nav.Link>
               )}
             </div>
