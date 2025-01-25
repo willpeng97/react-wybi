@@ -24,10 +24,12 @@ const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="
         height, // 使用傳遞的 height 屬性
         layout: "fitDataStretch",
         pagination: true,
-        reactiveData: true,
+        // reactiveData: true,
         columns: columns || [], // 使用傳遞的 columns 屬性
         autoColumns,
         data: rows, // 使用傳遞的 rows 數據
+        paginationSize:20,
+        paginationSizeSelector:[10, 20, 50, 100, 9999],
         locale: "zh_TW",
         langs: {
           "zh_TW": {

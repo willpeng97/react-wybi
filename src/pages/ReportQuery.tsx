@@ -1,12 +1,12 @@
 import React from "react";
-import TabulatorTable from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
-import tableData from "../mockData/WIP_OPI_WDOEACICO_HIST.json"
-
+import TabulatorTable from "../components/ReactTabulator"; // 引入 TabulatorTable 组件
+import { ReportQueryDemo } from "../mockData/UseMockData";
 
 const ReportQuery: React.FC = () => {
+  const tableData = ReportQueryDemo(2000);
   return (
     <div>
-      <TabulatorTable rows={tableData} height="550px" autoColumns/>
+      <TabulatorTable rows={tableData} height="550px" autoColumns />
     </div>
   );
 };
