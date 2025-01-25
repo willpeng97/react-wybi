@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables"; // 引入 Tabulator 庫
 import "tabulator-tables/dist/css/tabulator.min.css"; // 引入 Tabulator 樣式
