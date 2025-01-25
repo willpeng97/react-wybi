@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables"; // 引入 Tabulator 庫
 import "tabulator-tables/dist/css/tabulator.min.css"; // 引入 Tabulator 樣式
 
+
 interface TableData {
   [key: string]: string | number | unknown; // 使得表格數據的字段更加靈活
 }
@@ -14,7 +15,7 @@ interface TabulatorTableProps {
   autoColumns?: boolean
 }
 
-const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
+export const SmartQuery: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
   const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
   const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
 
@@ -68,5 +69,3 @@ const TabulatorTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="
 
   return <div ref={el} />; // 返回帶有 ref 的 div 元素
 };
-
-export default TabulatorTable;

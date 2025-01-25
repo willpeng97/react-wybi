@@ -1,5 +1,5 @@
 import React from "react";
-import TabulatorTable from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
+import { SmartQuery } from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
 import { Formatter } from "tabulator-tables";
 
 const generateDemoData = () => {
@@ -17,24 +17,6 @@ const generateDemoData = () => {
 };
 
 const tableData = generateDemoData();
-
-// const tableData = [
-//   {
-//     machineName: "Machine A",
-//     utilizationRate: 95,
-//     outputQuantity: 1000,
-//     productInProduction: "Widget X",
-//     operators: "John, Emily, Alex",
-//   },
-//   {
-//     machineName: "Machine B",
-//     utilizationRate: 75,
-//     outputQuantity: 800,
-//     productInProduction: "Gadget Y",
-//     operators: "Sarah, Michael, Jessica",
-//   },
-//   // 其他數據
-// ];
 
 const columns = [
   { title: "EQP_NO", field: "machineName", width: 150},
@@ -56,7 +38,7 @@ const columns = [
 const EqpOverview: React.FC = () => {
   return (
     <div>
-      <TabulatorTable columns={columns} rows={tableData} height="550px" />
+      <SmartQuery columns={columns} rows={tableData} height="550px" />
     </div>
   );
 };
