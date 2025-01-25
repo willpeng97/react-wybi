@@ -32,6 +32,26 @@ export const ReportQueryDemo = (length: number) => {
   return tableData;
 };
 
+export const StatusChangeHistDemo = (length: number) => {
+  const tableData = [];
+  for (let i = 0; i < length; i++) {
+    const [ from, to ] = generateRandomTimeSeries()
+
+    tableData.push({
+      EQP_NO: _.sample(["DC-01", "DC-02", "DC-03", "DC-04","CNC-01","CNC-02"]),
+      FROM_EQP_STATUS_SID: _.random(10000000000000, 99999999999999),
+      FROM_EQP_STATUS_CODE: _.sample(["Run", "Idle", "Error", "PowerOff"]),
+      FROM_EQP_STATUS_TIME: from,
+      TO_EQP_STATUS_SID: _.random(10000000000000, 99999999999999),
+      TO_EQP_STATUS_CODE: _.sample(["Run", "Idle", "Error", "PowerOff"]),
+      TO_EQP_STATUS_TIME: to,
+      REPORT_TIME: to
+    });
+  }
+  return tableData;
+
+}
+
 
 function generateRandomTimeSeries() {
   const minOffset = 10 * 60 * 1000; // 10 分鐘
