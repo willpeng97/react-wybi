@@ -1,17 +1,20 @@
-// 仅作为生成 mock 数据的工具函数
+import _ from 'lodash'
+
+// 生成DEMO用假數據
 export const ReportQueryDemo = (length: number) => {
   const tableData = [];
   for (let i = 0; i < length; i++) {
+    const [ checkIn, checkOut ] = generateRandomTimeSeries()
+
     tableData.push({
-      WIP_OPI_WDOEACICO_HIST_SID: "36257788126315",
-      WO: "MO24060071" + i,
-      DEPT_NO: "DC",
-      OPERATION_CODE: "W-D125",
-      EQP_NO: "DC-03",
-      ACCOUNT_NO: "642230,600713",
+      WIP_OPI_WDOEACICO_HIST_SID: _.random(10000000000000, 99999999999999),
+      WO: "MO" + _.random(180000000, 300000000),
+      OPERATION_CODE: "W-D" + _.sample(["125", "250", "500", "800"]),
+      EQP_NO: _.sample(["DC-01", "DC-02", "DC-03", "DC-04"]),
+      ACCOUNT_NO: _.random(1, 9999).toString().padStart(4, '0') + ',' + _.random(1, 9999).toString().padStart(4, '0'),
       NUM_OF_ACC: 2,
-      CHECK_IN_TIME: "2024-09-26 08:00:00.000",
-      CHECK_OUT_TIME: "2024-09-26 13:13:00.000",
+      CHECK_IN_TIME: checkIn,
+      CHECK_OUT_TIME: checkOut,
       OK_QTY: 10.0,
       NG_QTY: 5.0,
       COMMENT: "",
@@ -28,3 +31,17 @@ export const ReportQueryDemo = (length: number) => {
   }
   return tableData;
 };
+
+
+function generateRandomTimeSeries() {
+  const minOffset = 10 * 60 * 1000; // 10 分鐘
+  const maxOffset = 30 * 24 * 60 * 60 * 1000; // 30 天
+
+  const randomTimestamp_start = new Date().getTime() + _.random(minOffset, maxOffset);
+  const randomTimestamp_end = randomTimestamp_start + _.random(minOffset, maxOffset);
+  
+  return [
+    new Date(randomTimestamp_start).toISOString().replace("T", " ").slice(0, 16),
+    new Date(randomTimestamp_end).toISOString().replace("T", " ").slice(0, 16)
+  ]
+}
