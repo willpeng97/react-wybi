@@ -205,7 +205,7 @@ const Dashboard: React.FC = () => {
               </div>
               <div>
                 <small>Free (576MB)</small>
-                <ProgressBar now={28.8} variant="light" />
+                <ProgressBar now={28.8} variant="secondary" />
               </div>
             </div>
           </DashboardCard>
