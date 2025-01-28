@@ -1,6 +1,7 @@
 import React from "react";
 import { SmartQuery } from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
 import { Formatter } from "tabulator-tables";
+import DashboardCard from "../components/DashboardCard";
 
 const generateDemoData = () => {
   const data = [];
@@ -38,7 +39,9 @@ const columns = [
 const EqpOverview: React.FC = () => {
   return (
     <div>
-      <SmartQuery columns={columns} rows={tableData} height="550px" />
+      <DashboardCard>
+        <SmartQuery columns={columns} rows={tableData} height="550px" />
+      </DashboardCard>
     </div>
   );
 };
