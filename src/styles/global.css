@@ -34,12 +34,12 @@ body {
 }
 
 /* 卡片 */
-.dashboard-card {
+/* .dashboard-card {
   transition: transform 0.2s;
 }
 .dashboard-card:hover {
   transform: translateY(-2px);
-}
+} */
 
 
 .dot {

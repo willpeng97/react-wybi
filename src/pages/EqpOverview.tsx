@@ -38,11 +38,9 @@ const columns = [
 
 const EqpOverview: React.FC = () => {
   return (
-    <div>
-      <DashboardCard>
-        <SmartQuery columns={columns} rows={tableData} height="550px" />
-      </DashboardCard>
-    </div>
+    <DashboardCard>
+      <SmartQuery columns={columns} rows={tableData} height="550px" />
+    </DashboardCard>
   );
 };
 
