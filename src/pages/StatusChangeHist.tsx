@@ -1,5 +1,5 @@
 import React from "react";
-import { SmartQuery } from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
+import { GridTable } from "../components/GridTable"; // 引入 TabulatorTable 組件
 // import tableData from "../mockData/EQP_STATUS_CHANGE_HIST.json"
 import { StatusChangeHistDemo } from "../mockData/UseMockData"
 import DashboardCard from "../components/DashboardCard";
@@ -10,7 +10,7 @@ const StatusChangeHist: React.FC = () => {
   return (
     <div>
       <DashboardCard>
-        <SmartQuery rows={tableData} height="550px" autoColumns/>
+        <GridTable rows={tableData} height="550px" autoColumns/>
       </DashboardCard>
 
     </div>

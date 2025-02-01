@@ -1,5 +1,5 @@
 import React from "react";
-import { SmartQuery } from "../components/ReactTabulator"; // 引入 TabulatorTable 組件
+import { GridTable } from "../components/GridTable"; // 引入 TabulatorTable 組件
 import { Formatter } from "tabulator-tables";
 import DashboardCard from "../components/DashboardCard";
 
@@ -38,9 +38,11 @@ const columns = [
 
 const EqpOverview: React.FC = () => {
   return (
-    <DashboardCard>
-      <SmartQuery columns={columns} rows={tableData} height="550px" />
-    </DashboardCard>
+    <>
+      <DashboardCard>
+        <GridTable columns={columns} rows={tableData} height="550px" />
+      </DashboardCard>
+    </>
   );
 };
 

@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
       <Row className="g-3 mb-3">
         {/* Weekly Sales Card */}
         <Col md={4}>
-          <DashboardCard title="Weekly Sales">
+          <DashboardCard title="Weekly Sales" isInteractive>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h3 className="mb-0">$47K</h3>
               <div className="text-success">
@@ -142,7 +142,7 @@ const Dashboard: React.FC = () => {
 
         {/* Total Order Card */}
         <Col md={4}>
-          <DashboardCard title="Total Order">
+          <DashboardCard title="Total Order" isInteractive>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h3 className="mb-0">58.4K</h3>
               <div className="text-primary">
@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
 
         {/* Market Share Card */}
         <Col md={4}>
-          <DashboardCard title="Market Share">
+          <DashboardCard title="Market Share" isInteractive>
             <div className="text-center">
               <h3 className="mb-0">26M</h3>
               <MarketShareChart />
@@ -181,14 +181,14 @@ const Dashboard: React.FC = () => {
       <Row className="g-3 mb-3">
         {/* Projects Card */}
         <Col md={8}>
-          <DashboardCard title="Running Projects">
+          <DashboardCard title="Running Projects" isInteractive>
             <ProjectProgress />
           </DashboardCard>
         </Col>
 
         {/* Storage Card */}
         <Col md={4}>
-          <DashboardCard title="Storage Status">
+          <DashboardCard title="Storage Status" isInteractive>
             <h6 className="mb-3">Using Storage 1775.06 MB of 2 GB</h6>
             <div className="storage-bars">
               <div className="mb-2">

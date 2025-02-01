@@ -1,5 +1,5 @@
 import React from "react";
-import { SmartQuery } from "../components/ReactTabulator"; // 引入 TabulatorTable 组件
+import { GridTable } from "../components/GridTable"; // 引入 TabulatorTable 组件
 import { ReportQueryDemo } from "../mockData/UseMockData";
 import DashboardCard from "../components/DashboardCard";
 
@@ -8,7 +8,7 @@ const ReportQuery: React.FC = () => {
   return (
     <div>
       <DashboardCard>
-        <SmartQuery rows={tableData} height="550px" autoColumns />
+        <GridTable rows={tableData} height="550px" autoColumns />
       </DashboardCard>
     </div>
   );

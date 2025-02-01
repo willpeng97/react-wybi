@@ -13,7 +13,7 @@ interface TabulatorTableProps {
   autoColumns?: boolean
 }
 
-export const SmartQuery: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
+export const GridTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
   const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
   const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
 
