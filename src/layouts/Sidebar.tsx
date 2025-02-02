@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   FaTachometerAlt,
-  FaShoppingCart,
   FaChartBar,
   FaChartLine,
   FaCogs,
@@ -13,12 +12,13 @@ import {
 } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { Collapse, Dropdown, Nav } from "react-bootstrap";
+import { MdFactory } from "react-icons/md";
 
 // 設定選單
 const menuItems = [
   { kind: "header", title: "Main items"},
   { icon: <FaTachometerAlt />, text: "Dashboard", path: "/" },
-  { icon: <FaShoppingCart />, text: "Equipment Overview", path: "/eqp-overview" },
+  { icon: <MdFactory />, text: "Equipment Overview", path: "/eqp-overview" },
   { kind: "divider"},
   { kind: "header", title: "Query"},
   {
@@ -35,7 +35,7 @@ const menuItems = [
     text: "Reports2",
     path: "/reports2",
     subItems: [
-      { icon: <FaTachometerAlt />, text: "Sales2", path: "/reports2/sales2" },
+      { icon: <FaTachometerAlt />, text: "Sales2", path: "/reports2/smart-query" },
       { icon: <FaChartLine />, text: "Traffic2", path: "/reports2/traffic2" },
     ],
   },

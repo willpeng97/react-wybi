@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables"; // 引入 Tabulator 庫
 
-interface TableData {
+export interface TableData {
   [key: string]: string | number | unknown; // 使得表格數據的字段更加靈活
 }
 

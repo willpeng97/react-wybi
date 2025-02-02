@@ -7,6 +7,7 @@ import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import EqpOverview from "./pages/EqpOverview";
 import ReportQuery from "./pages/ReportQuery";
 import StatusChangeHist from "./pages/StatusChangeHist";
+import SmartQuery from "./components/SmartQuery";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
@@ -46,6 +47,10 @@ export const router = createBrowserRouter(
             {
               path: "/reports/status-hist", // 獨立的 /reports/traffic 路由
               Component: StatusChangeHist,
+            },
+            {
+              path: "/reports2/smart-query", // 獨立的 /reports/sales 路由
+              Component: SmartQuery,
             },
             {
               path: "/integrations",
