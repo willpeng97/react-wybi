@@ -7,7 +7,7 @@ import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
 import EqpOverview from "./pages/EqpOverview";
 import ReportQuery from "./pages/ReportQuery";
 import StatusChangeHist from "./pages/StatusChangeHist";
-import SmartQuery from "./components/SmartQuery";
+import { SmartQuery } from "./components/SmartQuery";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 

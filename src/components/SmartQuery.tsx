@@ -5,16 +5,14 @@ import { ColumnDefinition } from "tabulator-tables";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
 
-
-
 interface Condition {
   field: string;
   operator: string;
   value: string;
 }
 
-
-const Filter: React.FC = () => {
+// Filter 組件
+const Filter: React.FC<{ onSearch: (conditions: Condition[]) => void }> = ({ onSearch }) => {
   const [conditions, setConditions] = useState<Condition[]>([
     { field: '', operator: '=', value: '' }
   ]);
@@ -37,12 +35,17 @@ const Filter: React.FC = () => {
     setConditions(newConditions);
   };
 
+  const handleSearchClick = () => {
+    onSearch(conditions);  // 在這裡觸發傳遞回 SmartQuery 的 onSearch
+  };
+
   return (
     <Container fluid>
+      {!conditions.length && ( <div className='mb-2'>No Conditions</div> )}
       {conditions.map((condition, index) => (
-        <Row key={index} className="mb-2 align-items-center">
+        <Row key={index} className="mb-2">
           <Col xs="auto" className="d-flex align-items-center">
-            <Form.Label className="me-2">Field:</Form.Label>
+            <Form.Label className="me-2 mb-0">Field:</Form.Label>
             <Form.Select 
               size='sm' 
               value={condition.field} 
@@ -55,7 +58,7 @@ const Filter: React.FC = () => {
             </Form.Select>
           </Col>
           <Col xs="auto" className="d-flex align-items-center">
-            <Form.Label className="me-2">Type:</Form.Label>
+            <Form.Label className="me-2 mb-0">Type:</Form.Label>
             <Form.Select 
               size='sm' 
               value={condition.operator} 
@@ -68,11 +71,11 @@ const Filter: React.FC = () => {
             </Form.Select>
           </Col>
           <Col xs="auto" className="d-flex align-items-center">
-            <Form.Label className="me-2">Value:</Form.Label>
+            <Form.Label className="me-2 mb-0">Value:</Form.Label>
             <Form.Control 
               size='sm' 
               type="text" 
-              placeholder="條件輸入" 
+              placeholder="key in..." 
               value={condition.value} 
               onChange={(e) => handleConditionChange(index, 'value', e.target.value)} 
             />
@@ -86,15 +89,15 @@ const Filter: React.FC = () => {
           </Col>
         </Row>
       ))}
-      <Button size='sm' className='me-2' variant='secondary' onClick={handleResetCondition}>清空條件</Button>
-      <Button className='me-2' size='sm' variant='secondary' onClick={handleAddCondition}>新增條件</Button>
-      <Button size='sm' variant='primary'>查詢</Button>
+      <Button size='sm' className='me-2' variant='secondary' onClick={handleResetCondition}>Clear</Button>
+      <Button className='me-2' size='sm' variant='secondary' onClick={handleAddCondition}>Add</Button>
+      <Button size='sm' variant='primary' onClick={handleSearchClick}>Query</Button>
     </Container>
   );
 };
 
-
-const SmartQuery = () => {
+// SmartQuery 組件
+export const SmartQuery: React.FC = () => {
   const rows: TableData[] = [
     { id: 1, name: "Alice", age: 25, email: "alice@example.com" },
     { id: 2, name: "Bob", age: 30, email: "bob@example.com" },
@@ -108,17 +111,55 @@ const SmartQuery = () => {
     { title: "Email", field: "email" },
   ];
 
+  const [filteredRows, setFilteredRows] = useState<TableData[]>(rows); // 用來儲存過濾後的資料
+
+  // 查詢條件過濾邏輯
+  const handleSearch = (conditions: Condition[]) => {
+    let filteredData = rows;
+  
+    conditions.forEach(condition => {
+      if (condition.field && condition.value) {
+        filteredData = filteredData.filter((row) => {
+          const fieldValue = row[condition.field as keyof TableData]; // 類型斷言，將 `condition.field` 鑑定為 `TableData` 中的某個欄位
+    
+          // 轉換為適當的比較類型
+          let valueToCompare = condition.value;
+    
+          // 如果 fieldValue 和 condition.value 都是數字，將它們轉為字串比較
+          if (typeof fieldValue === 'number' && !isNaN(Number(condition.value))) {
+            valueToCompare = String(condition.value); // 將 condition.value 轉為字串
+          } else if (typeof fieldValue === 'string' && typeof condition.value === 'string') {
+            // 如果 fieldValue 和 condition.value 都是字串，將它們都轉為小寫後比較
+            valueToCompare = condition.value.toLowerCase();
+          }
+    
+          switch (condition.operator) {
+            case '=':
+              return String(fieldValue).toLowerCase() === valueToCompare.toLowerCase(); // 無論是字串還是數字，轉為字串後比較
+            case '<':
+              return typeof fieldValue === 'number' && fieldValue < Number(valueToCompare); // 確保 `fieldValue` 是數字
+            case '>':
+              return typeof fieldValue === 'number' && fieldValue > Number(valueToCompare); // 確保 `fieldValue` 是數字
+            case 'like':
+              return typeof fieldValue === 'string' && fieldValue.toLowerCase().includes(valueToCompare); // 確保 `fieldValue` 是字串
+            default:
+              return true;
+          }
+        });
+      }
+    });
+  
+    setFilteredRows(filteredData);
+  };
 
   return (
     <div>
-      <DashboardCard title="Query Condityion" className='mb-2'>
-        <Filter />
+      <DashboardCard title="Query Condition" className='mb-2'>
+        <Filter onSearch={handleSearch} />
       </DashboardCard>
       <DashboardCard>
-        <GridTable rows={rows} columns={columns} />
+        <GridTable rows={filteredRows} columns={columns} />
       </DashboardCard>
     </div>
   );
 };
-
-export default SmartQuery;
