@@ -3,6 +3,7 @@ import DashboardCard from "./DashboardCard";
 import { GridTable, TableData } from "./GridTable";
 import { ColumnDefinition } from "tabulator-tables";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
+import { AiOutlineClose } from 'react-icons/ai';
 
 
 
@@ -12,8 +13,9 @@ interface Condition {
   value: string;
 }
 
-const Filter = () => {
-  const [conditions, setConditions] = useState([
+
+const Filter: React.FC = () => {
+  const [conditions, setConditions] = useState<Condition[]>([
     { field: '', operator: '=', value: '' }
   ]);
 
@@ -21,7 +23,15 @@ const Filter = () => {
     setConditions([...conditions, { field: '', operator: '=', value: '' }]);
   };
 
-  const handleConditionChange = (index: number, key: keyof Condition, value: string)  => {
+  const handleRemoveCondition = (index: number) => {
+    setConditions(conditions.filter((_, i) => i !== index));
+  };
+
+  const handleResetCondition = () => {
+    setConditions([]);
+  };
+
+  const handleConditionChange = (index: number, key: keyof Condition, value: string) => {
     const newConditions = [...conditions];
     newConditions[index][key] = value;
     setConditions(newConditions);
@@ -30,17 +40,22 @@ const Filter = () => {
   return (
     <Container fluid>
       {conditions.map((condition, index) => (
-        <Row key={index} className="mb-2">
-          <Col>
-            <Form.Control 
+        <Row key={index} className="mb-2 align-items-center">
+          <Col xs="auto" className="d-flex align-items-center">
+            <Form.Label className="me-2">Field:</Form.Label>
+            <Form.Select 
               size='sm' 
-              type="text" 
-              placeholder="欄位名" 
               value={condition.field} 
               onChange={(e) => handleConditionChange(index, 'field', e.target.value)} 
-            />
+            >
+              <option value="id">ID</option>
+              <option value="name">Name</option>
+              <option value="age">Age</option>
+              <option value="email">Email</option>
+            </Form.Select>
           </Col>
-          <Col>
+          <Col xs="auto" className="d-flex align-items-center">
+            <Form.Label className="me-2">Type:</Form.Label>
             <Form.Select 
               size='sm' 
               value={condition.operator} 
@@ -52,7 +67,8 @@ const Filter = () => {
               <option value="like">like</option>
             </Form.Select>
           </Col>
-          <Col>
+          <Col xs="auto" className="d-flex align-items-center">
+            <Form.Label className="me-2">Value:</Form.Label>
             <Form.Control 
               size='sm' 
               type="text" 
@@ -61,8 +77,16 @@ const Filter = () => {
               onChange={(e) => handleConditionChange(index, 'value', e.target.value)} 
             />
           </Col>
+          <Col xs="auto" className="d-flex align-items-center">
+            <AiOutlineClose 
+              style={{ color: 'red', cursor: 'pointer' }} 
+              size={20} 
+              onClick={() => handleRemoveCondition(index)}
+            />
+          </Col>
         </Row>
       ))}
+      <Button size='sm' className='me-2' variant='secondary' onClick={handleResetCondition}>清空條件</Button>
       <Button className='me-2' size='sm' variant='secondary' onClick={handleAddCondition}>新增條件</Button>
       <Button size='sm' variant='primary'>查詢</Button>
     </Container>
@@ -90,7 +114,7 @@ const SmartQuery = () => {
       <DashboardCard title="Query Condityion" className='mb-2'>
         <Filter />
       </DashboardCard>
-      <DashboardCard title="Query Results">
+      <DashboardCard>
         <GridTable rows={rows} columns={columns} />
       </DashboardCard>
     </div>
