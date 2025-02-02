@@ -6,14 +6,14 @@ export interface TableData {
   [key: string]: string | number | unknown; // 使得表格數據的字段更加靈活
 }
 
-interface TabulatorTableProps {
+interface GridTableProps {
   rows: TableData[]; // 表格的數據
   columns?: ColumnDefinition[]; // 使用 Tabulator 的 ColumnDefinition 類型
   height?: string; // 設置表格高度，默認為 550px
   autoColumns?: boolean
 }
 
-export const GridTable: React.FC<TabulatorTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
+export const GridTable: React.FC<GridTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
   const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
   const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
 

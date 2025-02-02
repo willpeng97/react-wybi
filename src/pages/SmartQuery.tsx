@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DashboardCard from "./DashboardCard";
-import { GridTable, TableData } from "./GridTable";
+import DashboardCard from "../components/DashboardCard";
+import { GridTable, TableData } from "../components/GridTable";
 import { ColumnDefinition } from "tabulator-tables";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -97,7 +97,7 @@ const Filter: React.FC<{ onSearch: (conditions: Condition[]) => void }> = ({ onS
 };
 
 // SmartQuery 組件
-export const SmartQuery: React.FC = () => {
+export const SmartQuery = () => {
   const rows: TableData[] = [
     { id: 1, name: "Alice", age: 25, email: "alice@example.com" },
     { id: 2, name: "Bob", age: 30, email: "bob@example.com" },
@@ -158,7 +158,7 @@ export const SmartQuery: React.FC = () => {
         <Filter onSearch={handleSearch} />
       </DashboardCard>
       <DashboardCard>
-        <GridTable rows={filteredRows} columns={columns} />
+        <GridTable rows={filteredRows} columns={columns} height='60vh'/>
       </DashboardCard>
     </div>
   );
