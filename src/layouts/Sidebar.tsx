@@ -88,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                 style={{
                   maxHeight: `${sidebarOpen ? "100px" : "0px"}`,
                   overflow:"hidden",
-                  maxWidth: `${sidebarOpen ? "var(--sidebar-width)" : "0px"}`,
+                  maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 16px)" : "0px"}`,
                   transition: "all 0.3s ease"
                 }}
               >
@@ -116,7 +116,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                       <IconWrapper icon={item.icon} />
                       <span
                         className="text-truncate"
-                        style={{maxWidth:"calc(var(--sidebar-width) - 96px)"}}
+                        style={{
+                          // maxWidth:"calc(var(--sidebar-width) - 96px)"
+                          maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 96px)" : "0px"}`,
+                          transition: "all 0.3s ease"
+                        }}
                         title={item.text}
                       >
                         {item.text}
@@ -149,7 +153,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                             <IconWrapper icon={subItem.icon} />
                             <span
                               className="text-truncate"
-                              style={{maxWidth:"calc(var(--sidebar-width) - 112px)"}}
+                              style={{
+                                // maxWidth:"calc(var(--sidebar-width) - 112px)"
+                                maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 112px)" : "0px"}`,
+                                transition: "all 0.3s ease"
+                              }}
                               title={subItem.text}
                             >
                               {subItem.text}
@@ -191,15 +199,17 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   }`}
                 >
                   <IconWrapper icon={item.icon!} />
-                  {sidebarOpen && (
-                    <span
-                      className="text-truncate"
-                      style={{maxWidth:"calc(var(--sidebar-width) - 80px)"}}
-                      title={item.text}
-                    >
-                      {item.text}
-                    </span>
-                  )}
+                  <span
+                    className="text-truncate"
+                    style={{
+                      // maxWidth:"calc(var(--sidebar-width) - 80px)"
+                      maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 80px)" : "0px"}`,
+                      transition: "all 0.3s ease"
+                    }}
+                    title={item.text}
+                  >
+                    {item.text}
+                  </span>
                 </Nav.Link>
               )}
             </div>
