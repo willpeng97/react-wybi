@@ -4,9 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaChartBar,
-  FaChartLine,
+  // FaChartLine,
   FaCogs,
-  FaPlug,
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
@@ -35,13 +34,12 @@ const menuItems = [
     text: "Reports2",
     path: "/reports2",
     subItems: [
-      { icon: <FaTachometerAlt />, text: "Sales2", path: "/reports2/smart-query" },
-      { icon: <FaChartLine />, text: "Traffic2", path: "/reports2/traffic2" },
+      { icon: <FaTachometerAlt />, text: "smart query", path: "/reports2/smart-query" },
+      // { icon: <FaChartLine />, text: "Traffic2", path: "/reports2/traffic2" },
     ],
   },
   { kind: "divider"},
   { kind: "header", title: "System"},
-  { icon: <FaPlug />, text: "Integrations", path: "/integrations" },
   { icon: <FaCogs />, text: "Setting", path: "/setting" },
 ];
 

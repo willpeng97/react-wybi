@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DashboardCard from "../components/DashboardCard";
-import { GridTable, TableData } from "../components/GridTable";
+import DashboardCard from "../components/global/DashboardCard";
+import { GridTable, TableData } from "../components/global/GridTable";
 import { ColumnDefinition } from "tabulator-tables";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -102,6 +102,13 @@ export const SmartQuery = () => {
     { id: 1, name: "Alice", age: 25, email: "alice@example.com" },
     { id: 2, name: "Bob", age: 30, email: "bob@example.com" },
     { id: 3, name: "Charlie", age: 28, email: "charlie@example.com" },
+    { id: 4, name: "David", age: 35, email: "david@example.com" },
+    { id: 5, name: "Eva", age: 22, email: "eva@example.com" },
+    { id: 6, name: "Frank", age: 40, email: "frank@example.com" },
+    { id: 7, name: "Grace", age: 33, email: "grace@example.com" },
+    { id: 8, name: "Hannah", age: 27, email: "hannah@example.com" },
+    { id: 9, name: "Ivy", age: 31, email: "ivy@example.com" },
+    { id: 10, name: "Jack", age: 29, email: "jack@example.com" }
   ];
 
   const columns: ColumnDefinition[] = [

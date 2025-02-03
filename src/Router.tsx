@@ -53,10 +53,6 @@ export const router = createBrowserRouter(
               Component: SmartQuery,
             },
             {
-              path: "/integrations",
-              Component: () => <div>integrations</div>,
-            },
-            {
               path: "/setting",
               Component: () => <div>setting</div>,
             },

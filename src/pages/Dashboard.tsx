@@ -3,9 +3,9 @@ import React from 'react';
 import { Row, Col, ProgressBar } from 'react-bootstrap';
 import ReactECharts from 'echarts-for-react';
 import { BsArrowUp } from 'react-icons/bs';
-import DashboardCard from '../components/DashboardCard';
-import WeeklySalesChart from '../components/WeeklySalesChart';
-import ProjectProgress from '../components/ProjectProgress';
+import DashboardCard from '../components/global/DashboardCard';
+import WeeklySalesChart from '../components/dashboard/WeeklySalesChart';
+import ProjectProgress from '../components/dashboard/ProjectProgress';
 
 const salesData = [
   { name: 'Jan 5', value: 60 },

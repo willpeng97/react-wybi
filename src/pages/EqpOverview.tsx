@@ -1,7 +1,7 @@
 import React from "react";
-import { GridTable } from "../components/GridTable"; // 引入 TabulatorTable 組件
+import { GridTable } from "../components/global/GridTable"; // 引入 TabulatorTable 組件
 import { Formatter } from "tabulator-tables";
-import DashboardCard from "../components/DashboardCard";
+import DashboardCard from "../components/global/DashboardCard";
 
 const generateDemoData = () => {
   const data = [];
