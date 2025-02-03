@@ -18,14 +18,15 @@ const LoginPage: React.FC = () => {
   const handleLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const account = formData.get("text") as string;
+    const account = formData.get("account") as string;
     const password = formData.get("password") as string;
 
-    // 調用 login 方法進行登入
-    login(account, password);
-
-    // 登入成功後導航到主頁
-    navigate("/");
+    const success = login(account, password); // 接收 login 是否成功的結果
+    if (success) {
+      navigate("/");
+    } else {
+      alert("請輸入正確的帳號密碼!");
+    }
   };
 
   return (
@@ -50,6 +51,7 @@ const LoginPage: React.FC = () => {
                 </InputGroup.Text>
                 <Form.Control
                   type="text"
+                  name="account"
                   placeholder="User ID"
                   className="bg-transparent text-secondary placeholder-secondary shadow-none"
                 />
@@ -64,6 +66,7 @@ const LoginPage: React.FC = () => {
                 </InputGroup.Text>
                 <Form.Control
                   type="password"
+                  name="password"
                   placeholder="The password"
                   className="bg-transparent text-secondary placeholder-secondary shadow-none"
                 />
