@@ -63,11 +63,21 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
 
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
+  const [dropdownOpenItems, setDropdownOpenItems] = useState<Record<string, boolean>>({});
+
   const toggleExpand = (key: string) => {
     setExpandedItems((prev) => ({
       ...prev,
-      [key]: !prev[key],
+      [key]: !prev[key], // 控制 Collapse 展開
     }));
+  
+    // 如果 sidebar 是收起的狀態，則展開 Dropdown 需要獨立控制
+    if (!sidebarOpen) {
+      setDropdownOpenItems((prev) => ({
+        ...prev,
+        [key]: !prev[key], // 只有當 sidebar 收起時，才影響 Dropdown
+      }));
+    }
   };
 
   const isActive = (path: string) => {
@@ -138,10 +148,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   </Nav.Link>
 
                    {/* 當 sidebar 展開時，使用 Collapse */}
-                  {/* {sidebarOpen && ( */}
-                    <Collapse 
-                      in={sidebarOpen && expandedItems[itemKey]}
-                    >
+                  {sidebarOpen && (
+                    <Collapse in={expandedItems[itemKey]}>
                       <div className="ms-4">
                         {item.subItems.map((subItem, subIndex) => (
                           <Nav.Link
@@ -168,18 +176,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                         ))}
                       </div>
                     </Collapse>
-                  {/* )} */}
+                  )}
 
                   {/* 當 sidebar 收起時，使用 Dropdown */}
-                  {/* {!sidebarOpen && ( */}
-                    <Dropdown 
-                      show={expandedItems[itemKey]} 
-                      onToggle={() => toggleExpand(itemKey)} 
-                      style={{ 
-                        position: 'relative',
-                        display: sidebarOpen ? 'none' : 'block'
-                      }}
-                    >
+                  {!sidebarOpen && (
+                    <Dropdown show={dropdownOpenItems[itemKey]} style={{ position: 'relative' }}>
                       <Dropdown.Menu style={{ left: '100%', top: '-48px', }}>
                         {item.subItems.map((subItem, subIndex) => (
                           <Dropdown.Item
@@ -196,7 +197,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                         ))}
                       </Dropdown.Menu>
                     </Dropdown>
-                  {/* )} */}
+
+                  )}
                 </div>
               ) : (
                 // Regular menu item
