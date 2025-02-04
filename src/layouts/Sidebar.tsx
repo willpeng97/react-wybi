@@ -179,7 +179,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
 
                   {/* 當 sidebar 收起時，使用 Dropdown */}
                   {!sidebarOpen && (
-                    <Dropdown show={dropdownOpenItems[itemKey]} style={{ position: 'relative' }}>
+                    <Dropdown show={dropdownOpenItems[itemKey]} onToggle={() => toggleExpand(itemKey)} style={{ position: 'relative' }}>
                       <Dropdown.Menu style={{ left: '100%', top: '-48px', }}>
                         {item.subItems.map((subItem, subIndex) => (
                           <Dropdown.Item
