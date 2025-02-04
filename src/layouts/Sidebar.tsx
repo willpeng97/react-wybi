@@ -66,13 +66,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
   const [dropdownOpenItems, setDropdownOpenItems] = useState<Record<string, boolean>>({});
 
   const toggleExpand = (key: string) => {
-    setExpandedItems((prev) => ({
-      ...prev,
-      [key]: !prev[key], // 控制 Collapse 展開
-    }));
-  
-    // 如果 sidebar 是收起的狀態，則展開 Dropdown 需要獨立控制
-    if (!sidebarOpen) {
+    if (sidebarOpen) {
+      setExpandedItems((prev) => ({
+        ...prev,
+        [key]: !prev[key], // 控制 Collapse 展開
+      }));
+    } else {
       setDropdownOpenItems((prev) => ({
         ...prev,
         [key]: !prev[key], // 只有當 sidebar 收起時，才影響 Dropdown
