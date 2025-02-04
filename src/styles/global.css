@@ -23,7 +23,7 @@ body {
   top: var(--navbar-height);
   left: 0;
   height: 100vh;
-  min-width: var(--sidebar-width);
+  width: var(--sidebar-width);
   transition: all 0.3s ease;
   /* overflow: hidden */
 }
