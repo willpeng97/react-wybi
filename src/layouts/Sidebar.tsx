@@ -138,8 +138,10 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                   </Nav.Link>
 
                    {/* 當 sidebar 展開時，使用 Collapse */}
-                  {sidebarOpen && (
-                    <Collapse in={expandedItems[itemKey]}>
+                  {/* {sidebarOpen && ( */}
+                    <Collapse 
+                      in={sidebarOpen && expandedItems[itemKey]}
+                    >
                       <div className="ms-4">
                         {item.subItems.map((subItem, subIndex) => (
                           <Nav.Link
@@ -166,11 +168,18 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                         ))}
                       </div>
                     </Collapse>
-                  )}
+                  {/* )} */}
 
                   {/* 當 sidebar 收起時，使用 Dropdown */}
-                  {!sidebarOpen && (
-                    <Dropdown show={expandedItems[itemKey]} onToggle={() => toggleExpand(itemKey)} style={{ position: 'relative' }}>
+                  {/* {!sidebarOpen && ( */}
+                    <Dropdown 
+                      show={expandedItems[itemKey]} 
+                      onToggle={() => toggleExpand(itemKey)} 
+                      style={{ 
+                        position: 'relative',
+                        display: sidebarOpen ? 'none' : 'block'
+                      }}
+                    >
                       <Dropdown.Menu style={{ left: '100%', top: '-48px', }}>
                         {item.subItems.map((subItem, subIndex) => (
                           <Dropdown.Item
@@ -187,7 +196,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                         ))}
                       </Dropdown.Menu>
                     </Dropdown>
-                  )}
+                  {/* )} */}
                 </div>
               ) : (
                 // Regular menu item
