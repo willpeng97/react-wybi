@@ -57,6 +57,6 @@ export const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/react-wybi/", // 添加應用的子路徑
+    basename: import.meta.env.BASE_URL, // 指定根目錄 設定在 vite.config.ts 文件
   }
 );

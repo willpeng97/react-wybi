@@ -1,6 +1,6 @@
 // auth/AuthProvider.tsx
 import { FC, createContext, useContext, useState, PropsWithChildren } from 'react';
-import axiosInstance from '../api/axiosInstance';
+import axiosInstance from '../utils/axiosInstance';
 
 type UserInfo = Record<string, string | number | null> | null;
 
