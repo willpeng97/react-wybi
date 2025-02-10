@@ -1,0 +1,67 @@
+[
+  {
+    "PROJECT_CODE": "ACME001",
+    "PROJECT_NAME": "越峰",
+    "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+    "TYPE_NAME": "客戶",
+    "CUSTOMER_NO": "越峰",
+    "progress": 83,
+    "dennis": 0,
+    "JackYeh": 0,
+    "jay": 0,
+    "leo": 3,
+    "will": 0
+  },
+  {
+    "PROJECT_CODE": "CHINCHUN01",
+    "PROJECT_NAME": "金贊",
+    "PROJECT_MAINTAIN_STATUS_NAME": "維護合約",
+    "TYPE_NAME": "泰國公司",
+    "CUSTOMER_NO": "CHINCHUN",
+    "progress": 92,
+    "dennis": 0,
+    "JackYeh": 0,
+    "jay": 2,
+    "leo": 0,
+    "will": 0
+  },
+  {
+    "PROJECT_CODE": "IDEAL02",
+    "PROJECT_NAME": "愛地雅-MES增強",
+    "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+    "TYPE_NAME": "公司",
+    "CUSTOMER_NO": "愛地雅",
+    "progress": 10,
+    "dennis": 0,
+    "JackYeh": 3,
+    "jay": 0,
+    "leo": 0,
+    "will": 0
+  },
+  {
+    "PROJECT_CODE": "JINTEX002",
+    "PROJECT_NAME": "福盈電子商務",
+    "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+    "TYPE_NAME": "客戶",
+    "CUSTOMER_NO": "JINTEX",
+    "progress": 30,
+    "dennis": 1,
+    "JackYeh": 0,
+    "jay": 0,
+    "leo": 1,
+    "will": 0
+  },
+  {
+    "PROJECT_CODE": "JINTEX006",
+    "PROJECT_NAME": "福盈 IoT MES (與鼎新介面)",
+    "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+    "TYPE_NAME": "客戶",
+    "CUSTOMER_NO": "JINTEX",
+    "progress": 100,
+    "dennis": 0,
+    "JackYeh": 0,
+    "jay": 0,
+    "leo": 0,
+    "will": 0
+  }
+]

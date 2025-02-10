@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import { FC, CSSProperties, ReactNode } from 'react';
 import { Card } from 'react-bootstrap';
 
 interface DashboardCardProps {
@@ -9,7 +9,7 @@ interface DashboardCardProps {
   className?: string; // 新增自訂 className 屬性
 }
 
-const DashboardCard: React.FC<DashboardCardProps> = ({
+const DashboardCard: FC<DashboardCardProps> = ({
   title,
   children,
   style,

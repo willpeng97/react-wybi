@@ -1,46 +1,51 @@
-import React from "react";
-import { useState } from "react";
+import { FC, cloneElement, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   FaTachometerAlt,
-  FaChartBar,
-  // FaChartLine,
-  FaCogs,
   FaChevronDown,
   FaChevronUp,
+  FaSearch,
+  FaTools,
+  FaTasks,
 } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { Collapse, Dropdown, Nav } from "react-bootstrap";
-import { MdFactory } from "react-icons/md";
 
 // 設定選單
 const menuItems = [
-  { kind: "header", title: "Main items"},
+  { kind: "header", title: "Overview"},
   { icon: <FaTachometerAlt />, text: "Dashboard", path: "/" },
-  { icon: <MdFactory />, text: "Equipment Overview", path: "/eqp-overview" },
+  { icon: <FaTasks />, text: "Project Overview", path: "/project-overview" },
   { kind: "divider"},
-  { kind: "header", title: "Query"},
+  { kind: "header", title: "Project"},
   {
-    icon: <FaChartBar />,
-    text: "Reports",
-    path: "/reports",
+    icon: <FaSearch />,
+    text: "Query",
+    path: "/query",
     subItems: [
-      { icon: <FaTachometerAlt />, text: "work report", path: "/reports/work-report" },
-      { icon: <FaChartBar />, text: "status hist", path: "/reports/status-hist" },
+      // { text: "待處理查詢", path: "/query/pending-tasks" },
+      // { text: "工作週查詢", path: "/query/work-week" },
+      // { text: "專案管理查詢", path: "/query/project-management" },
+      // { text: "總清單查詢", path: "/query/full-list" },
+      { text: "待處理查詢", path: "/query/308024965610621" },
+      { text: "工作週查詢", path: "/query/309517261176298" },
+      { text: "專案管理查詢", path: "/query/305890829563555" },
+      { text: "總清單查詢", path: "/query/305890850870278" },
     ],
   },
   {
-    icon: <FaChartBar />,
-    text: "Reports2",
-    path: "/reports2",
+    icon: <FaTools />,
+    text: "Maintain",
+    path: "/maintain",
     subItems: [
-      { icon: <FaTachometerAlt />, text: "smart query", path: "/reports2/smart-query" },
-      // { icon: <FaChartLine />, text: "Traffic2", path: "/reports2/traffic2" },
+      { text: "專案分類維護", path: "/maintain/project-category" },
+      { text: "專案狀態維護", path: "/maintain/project-status" },
+      { text: "工作分類維護", path: "/maintain/process-type" },
+      { text: "工作狀態維護", path: "/maintain/process-status" },
+      { text: "專案管理維護", path: "/maintain/project-maintain" },
+      { text: "專案工作維護", path: "/maintain/project-detail" },
     ],
   },
-  { kind: "divider"},
-  { kind: "header", title: "System"},
-  { icon: <FaCogs />, text: "Setting", path: "/setting" },
 ];
 
 const IconWrapper = ({ icon }: { icon: JSX.Element }) => {
@@ -49,7 +54,7 @@ const IconWrapper = ({ icon }: { icon: JSX.Element }) => {
       className="d-flex justify-content-center align-items-center me-2"
       style={{ width: "24px", height: "24px" }}
     >
-      {React.cloneElement(icon, { size: 20 })}
+      {cloneElement(icon, { size: 20 })}
     </span>
   );
 };
@@ -58,7 +63,7 @@ const IconWrapper = ({ icon }: { icon: JSX.Element }) => {
 interface SidebarProps {
   sidebarOpen: boolean;
 }
-const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
+const Sidebar: FC<SidebarProps> = ({ sidebarOpen }) => {
   const location = useLocation();
 
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
@@ -124,9 +129,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                     <div className="d-flex align-items-center">
                       <IconWrapper icon={item.icon} />
                       <span
-                        className="text-truncate"
+                        className="text-truncate fw-bold"
                         style={{
-                          // maxWidth:"calc(var(--sidebar-width) - 96px)"
                           maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 96px)" : "0px"}`,
                           transition: "all 0.3s ease"
                         }}
@@ -146,7 +150,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                     </div>
                   </Nav.Link>
 
-                   {/* 當 sidebar 展開時，使用 Collapse */}
+                  {/* 當 sidebar 展開時，使用 Collapse */}
                   {sidebarOpen && (
                     <Collapse in={expandedItems[itemKey]}>
                       <div className="ms-4">
@@ -159,11 +163,10 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                               location.pathname === subItem.path ? "active" : ""
                             }`}
                           >
-                            <IconWrapper icon={subItem.icon} />
+                            {/* <IconWrapper icon={subItem.icon} /> */}
                             <span
                               className="text-truncate"
                               style={{
-                                // maxWidth:"calc(var(--sidebar-width) - 112px)"
                                 maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 112px)" : "0px"}`,
                                 transition: "all 0.3s ease"
                               }}
@@ -179,8 +182,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
 
                   {/* 當 sidebar 收起時，使用 Dropdown */}
                   {!sidebarOpen && (
-                    <Dropdown show={dropdownOpenItems[itemKey]} onToggle={() => toggleExpand(itemKey)} style={{ position: 'relative' }}>
-                      <Dropdown.Menu style={{ left: '100%', top: '-48px', }}>
+                    <Dropdown show={dropdownOpenItems[itemKey]} onToggle={() => toggleExpand(itemKey)}>
+                      <Dropdown.Menu style={{ left: '100%', top: '-48px' }}>
                         {item.subItems.map((subItem, subIndex) => (
                           <Dropdown.Item
                             key={subIndex}
@@ -190,7 +193,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                               location.pathname === subItem.path ? "active" : ""
                             }`}
                           >
-                            <IconWrapper icon={subItem.icon} />
+                            {/* <IconWrapper icon={subItem.icon} /> */}
                             {subItem.text}
                           </Dropdown.Item>
                         ))}
@@ -210,9 +213,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
                 >
                   <IconWrapper icon={item.icon!} />
                   <span
-                    className="text-truncate"
+                    className="text-truncate fw-bold"
                     style={{
-                      // maxWidth:"calc(var(--sidebar-width) - 80px)"
                       maxWidth: `${sidebarOpen ? "calc(var(--sidebar-width) - 80px)" : "0px"}`,
                       transition: "all 0.3s ease"
                     }}
@@ -226,6 +228,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
           );
         })}
       </Nav>
+
     </div>
   );
 };

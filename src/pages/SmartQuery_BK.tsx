@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import DashboardCard from "../components/global/DashboardCard";
 import { GridTable, TableData } from "../components/global/GridTable";
+// import { ColumnDefinition } from "tabulator-tables";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
-// import { SmartQueryDemo } from '../mockData/UseMockData';
-import { getGrid } from '../api/getGridApi';
+import { SmartQueryDemo } from '../mockData/UseMockData';
 
 interface Condition {
   field: string;
@@ -107,22 +107,30 @@ const SmartQuery = () => {
 
   // 監聽 SID 變更，重新設定資料
   useEffect(() => {
-    const fetchData = async () => {
-      // const newRows = SmartQueryDemo(SID!);
-  
-      try {
-        const rowdata = await getGrid(SID!);
-        console.log("rowdata=", rowdata); // 這裡 rowdata 會是 API 回傳的資料
-  
-        setRows(rowdata); // 設定 API 回傳的資料
-        setFilteredRows(rowdata); // 重設篩選結果
-      } catch (error) {
-        console.error("API 錯誤:", error);
-      }
-    };
-  
-    fetchData();
+    // const newRows: TableData[] = [
+    //   { id: 1, name: "Alice", age: SID, email: "alice@example.com" },
+    //   { id: 2, name: "Bob", age: 36, email: "bob@example.com" },
+    //   { id: 3, name: "Charlie", age: 23, email: "charlie@example.com" },
+    //   { id: 4, name: "David", age: 18, email: "david@example.com" },
+    //   { id: 5, name: "Eva", age: 32, email: "eva@example.com" },
+    //   { id: 6, name: "Frank", age: 40, email: "frank@example.com" },
+    //   { id: 7, name: "Grace", age: 33, email: "grace@example.com" },
+    //   { id: 8, name: "Hannah", age: 27, email: "hannah@example.com" },
+    //   { id: 9, name: "Ivy", age: 31, email: "ivy@example.com" },
+    //   { id: 10, name: "Jack", age: 29, email: "jack@example.com" }
+    // ];
+    const newRows = SmartQueryDemo(SID!)
+
+    setRows(newRows!);
+    setFilteredRows(newRows!); // 重設篩選結果
   }, [SID]); // 監聽 SID 改變
+
+  // const columns: ColumnDefinition[] = [
+  //   { title: "ID", field: "id" },
+  //   { title: "Name", field: "name" },
+  //   { title: "Age", field: "age" },
+  //   { title: "Email", field: "email" },
+  // ];
 
   // 查詢條件過濾邏輯
   const handleSearch = (conditions: Condition[]) => {

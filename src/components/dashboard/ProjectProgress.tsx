@@ -1,5 +1,4 @@
 // components/ProjectProgress.tsx
-import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
 interface Project {
@@ -18,7 +17,7 @@ const projects: Project[] = [
   { id: 'S', name: 'Slick', progress: 70, time: '31:20:00', color: '#f5803e' },
 ];
 
-const ProjectProgress: React.FC = () => {
+const ProjectProgress = () => {
   return (
     <div>
       {projects.map((project) => (

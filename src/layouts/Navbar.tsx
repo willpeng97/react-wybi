@@ -1,3 +1,4 @@
+import { FC, useEffect, useState } from "react";
 import { RiMenuLine, RiMenuUnfold4Line } from "react-icons/ri";
 import { useAuth } from "../auth/AuthProvider";
 import {
@@ -8,20 +9,21 @@ import {
   Nav,
 } from "react-bootstrap";
 import {
-  FaCrown,
   FaUser,
   FaCommentDots,
   FaCog,
   FaSignOutAlt,
   FaUserCircle,
 } from "react-icons/fa";
-import React from "react";
 import { Link } from "react-router-dom";
+import { FaCircleQuestion } from "react-icons/fa6";
 
 // 用戶頭像
-const AccountMenu: React.FC = () => {
+const AccountMenu = () => {
   const { logout } = useAuth(); // 透過 useAuth 提供的登出方法
   const handleLogout = () => logout();
+
+  const username = localStorage.getItem('username')
 
   return (
     <Dropdown align="end">
@@ -37,15 +39,15 @@ const AccountMenu: React.FC = () => {
       {/* 下拉選單內容 */}
       <Dropdown.Menu className="w-48">
         <Dropdown.Item className="d-flex align-items-center gap-2">
-          <FaCrown className="text-secondary" />
-          <span>Go Pro</span>
+          <FaUser className="text-secondary" />
+          <span>{username}</span>
         </Dropdown.Item>
 
         <Dropdown.Divider />
 
         <Dropdown.Item className="d-flex align-items-center gap-2">
-          <FaUser className="text-secondary" />
-          <span>Profile & account</span>
+          <FaCircleQuestion className="text-secondary" />
+          <span>Support</span>
         </Dropdown.Item>
 
         <Dropdown.Item className="d-flex align-items-center gap-2">
@@ -77,9 +79,9 @@ interface NavbarProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
 }
-const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, toggleSidebar }) => {
-  const [currentTime, setCurrentTime] = React.useState("");
-  React.useEffect(() => {
+const Navbar: FC<NavbarProps> = ({ sidebarOpen, toggleSidebar }) => {
+  const [currentTime, setCurrentTime] = useState("");
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(
         new Date().toLocaleTimeString(undefined, { timeZoneName: "short" })

@@ -1,5 +1,5 @@
 // pages/LoginPage.tsx
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 import {
   Form,
   Button,
@@ -11,17 +11,17 @@ import { useAuth } from "../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { FaLock, FaUser } from "react-icons/fa";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const account = formData.get("account") as string;
     const password = formData.get("password") as string;
 
-    const success = login(account, password); // 接收 login 是否成功的結果
+    const success = await login(account, password); // 接收 login 是否成功的結果
     if (success) {
       navigate("/");
     } else {

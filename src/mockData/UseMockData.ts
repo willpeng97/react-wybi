@@ -52,6 +52,69 @@ export const StatusChangeHistDemo = (length: number) => {
 
 }
 
+export const SmartQueryDemo = (SID: string) => {
+  switch(SID){
+    case 'pending-tasks':
+      return [
+        {
+          "PROJECT_CODE": "ACME001",
+          "PROJECT_NAME": "越峰",
+          "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+          "TYPE_NAME": "客戶",
+          "CUSTOMER_NO": "越峰",
+          "progress": 83,
+          "dennis": 0,
+          "JackYeh": 0,
+          "jay": 0,
+          "leo": 3,
+          "will": 0
+        },
+        {
+          "PROJECT_CODE": "CHINCHUN01",
+          "PROJECT_NAME": "金贊",
+          "PROJECT_MAINTAIN_STATUS_NAME": "維護合約",
+          "TYPE_NAME": "泰國公司",
+          "CUSTOMER_NO": "CHINCHUN",
+          "progress": 92,
+          "dennis": 0,
+          "JackYeh": 0,
+          "jay": 2,
+          "leo": 0,
+          "will": 0
+        }
+      ]
+    case 'work-week':
+      return [
+        {
+          "PROJECT_CODE": "ASDSADSAD",
+          "PROJECT_NAME": "越峰",
+          "PROJECT_MAINTAIN_STATUS_NAME": "已接案",
+          "TYPE_NAME": "客戶",
+          "CUSTOMER_NO": "越峰",
+          "progress": 83,
+          "dennis": 0,
+          "JackYeh": 0,
+          "jay": 0,
+          "leo": 3,
+          "will": 0
+        },
+        {
+          "PROJECT_CODE": "SDFDSFSDF",
+          "PROJECT_NAME": "金贊",
+          "PROJECT_MAINTAIN_STATUS_NAME": "維護合約",
+          "TYPE_NAME": "泰國公司",
+          "CUSTOMER_NO": "CHINCHUN",
+          "progress": 92,
+          "dennis": 0,
+          "JackYeh": 0,
+          "jay": 2,
+          "leo": 0,
+          "will": 0
+        }
+      ]
+  }
+}
+
 
 function generateRandomTimeSeries() {
   const minOffset = 10 * 60 * 1000; // 10 分鐘

@@ -1,38 +1,62 @@
 // auth/AuthProvider.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { FC, createContext, useContext, useState, PropsWithChildren } from 'react';
+import axiosInstance from '../api/axiosInstance';
+
+type UserInfo = Record<string, string | number | null> | null;
 
 interface AuthContextProps {
   isAuthenticated: boolean;
-  login: (account: string, password: string) => boolean;
+  userInfo: UserInfo;
+  login: (account: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     // 初始化時從 localStorage 恢復狀態
     return localStorage.getItem('isAuthenticated') === 'true';
   });
 
-  const login = (account: string, password: string) => {
-    if (account === "DEMO" && password === "DEMO") {
-      console.log("Logging in with:", account, password);
-      setIsAuthenticated(true);
-      localStorage.setItem("isAuthenticated", "true");
-      return true;  // 登入成功
-    } else {
-      return false;  // 登入失敗
+  const [userInfo, setUserInfo] = useState<UserInfo>(() => {
+    const savedUserInfo = localStorage.getItem('userInfo');
+    return savedUserInfo ? JSON.parse(savedUserInfo) : null;
+  });
+
+  const login = async (account: string, password: string): Promise<boolean> => {
+    try {
+      const requestBody = { UID: account, PWD: password };
+      const response = await axiosInstance.post("WeyuLogin", requestBody);
+      console.log(response)
+      if (response.data.result) { // 後端回傳 { result: true/false }
+        setIsAuthenticated(true);
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem("username", account)
+        localStorage.setItem('userInfo', JSON.stringify(response.data.UserInfo));
+
+        setUserInfo(response.data.UserInfo);
+
+        return true; // 登入成功
+      } else {
+        return false; // 登入失敗
+      }
+    } catch (error) {
+      console.error("登入失敗:", error);
+      return false; // API 錯誤時回傳 false
     }
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    setUserInfo(null);
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userInfo');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userInfo, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

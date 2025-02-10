@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import { Link, useLocation, Outlet  } from "react-router-dom";
 import { Breadcrumb } from "react-bootstrap";
 import Sidebar from "./Sidebar";
@@ -56,9 +56,7 @@ const Footer = () => {
 };
 
 // 頁面內容區域
-const PageContainer: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const PageContainer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div
       className="p-3 pt-1"

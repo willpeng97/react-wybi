@@ -1,49 +1,47 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
-import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables"; // 引入 Tabulator 庫
+import { FC, useEffect, useRef, useState } from "react";
+import { TabulatorFull as Tabulator, ColumnDefinition } from "tabulator-tables";
 
 export interface TableData {
-  [key: string]: string | number | unknown; // 使得表格數據的字段更加靈活
+  [key: string]: string | number | unknown;
 }
 
 interface GridTableProps {
-  rows: TableData[]; // 表格的數據
-  columns?: ColumnDefinition[]; // 使用 Tabulator 的 ColumnDefinition 類型
-  height?: string; // 設置表格高度，默認為 550px
-  autoColumns?: boolean
+  rows: TableData[];
+  columns?: ColumnDefinition[];
+  height?: string;
+  autoColumns?: boolean;
 }
 
-export const GridTable: React.FC<GridTableProps> = ({ columns, rows, height="550px", autoColumns=false }) => {
-  const el = useRef<HTMLDivElement | null>(null); // 用於引用 DOM 元素
-  const tabulatorRef = useRef<Tabulator | null>(null); // 用於保存 Tabulator 實例
+export const GridTable: FC<GridTableProps> = ({ columns, rows, height = "550px", autoColumns = false }) => {
+  const el = useRef<HTMLDivElement | null>(null);
+  const tabulatorRef = useRef<Tabulator | null>(null);
+  const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
-    // 在組件加載完成後初始化 Tabulator
     if (el.current) {
       tabulatorRef.current = new Tabulator(el.current, {
-        height, // 使用傳遞的 height 屬性
-        layout: "fitDataStretch",
+        height,
+        layout: "fitData",
         pagination: true,
-        // reactiveData: true,
-        columns: columns || [], // 使用傳遞的 columns 屬性
+        columns: columns || [],
         autoColumns,
-        data: rows, // 使用傳遞的 rows 數據
-        paginationSize:20,
-        paginationSizeSelector:[10, 20, 50, 100, 9999],
+        data: rows,
+        paginationSize: 20,
+        paginationSizeSelector: [10, 20, 50, 100, 9999],
         locale: "zh_TW",
         langs: {
-          "zh_TW": {
+          zh_TW: {
             pagination: {
-              page_size: "Page Size", //label for the page size select element
-              page_title: "Show Page", //tooltip text for the numeric page button, appears in front of the page number
-              first: "<<", //text for the first page button
-              first_title: "First Page", //tooltip text for the first page button
-              last: ">>", //text for the last page button
-              last_title: "Last Page", //tooltip text for the last page button
-              prev: "<", //text for the previous page button
-              prev_title: "Prev Page", //tooltip text for the previous page button
-              next: ">", //text for the next page button
-              next_title: "Next Page", //tooltip text for the next page button
+              page_size: "Page Size",
+              page_title: "Show Page",
+              first: "<<",
+              first_title: "First Page",
+              last: ">>",
+              last_title: "Last Page",
+              prev: "<",
+              prev_title: "Prev Page",
+              next: ">",
+              next_title: "Next Page",
               all: "All",
               counter: {
                 showing: "Showing",
@@ -54,16 +52,52 @@ export const GridTable: React.FC<GridTableProps> = ({ columns, rows, height="550
             },
           },
         },
+        // editable: true, // 啟用編輯功能
       });
     }
 
-    // 清理 Tabulator 實例，並檢查是否有有效的元素
     return () => {
-      if (tabulatorRef.current && el.current) {
+      if (tabulatorRef.current) {
         tabulatorRef.current.destroy();
       }
     };
-  }, [columns, rows, height]); // 當 columns、rows 或 height 發生變化時重新渲染 Tabulator
+  }, [columns, rows, height]);
 
-  return <div ref={el} />; // 返回帶有 ref 的 div 元素
+  const handleFilter = () => {
+    if (tabulatorRef.current) {
+      tabulatorRef.current.setFilter((data) => {
+        return Object.values(data).some((value) =>
+          String(value).toLowerCase().includes(filterText.toLowerCase())
+        );
+      });
+    }
+  };
+
+
+  const handleEditRow = () => {
+    if (tabulatorRef.current) {
+      const selectedRows = tabulatorRef.current.getSelectedData();
+      if (selectedRows.length > 0) {
+        alert("編輯行: " + JSON.stringify(selectedRows[0]));
+      } else {
+        alert("請選擇一行進行編輯");
+      }
+    }
+  };
+
+  return (
+    <div>
+      <div style={{ marginBottom: "10px", display: "flex", gap: "10px" }}>
+        <input
+          type="text"
+          placeholder="搜尋..."
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
+        <button onClick={handleFilter}>篩選</button>
+        <button onClick={handleEditRow}>編輯</button>
+      </div>
+      <div ref={el} />
+    </div>
+  );
 };

@@ -1,8 +1,7 @@
 // components/WeeklySalesChart.tsx
-import React from 'react';
 import ReactECharts from 'echarts-for-react';
 
-const WeeklySalesChart: React.FC = () => {
+const WeeklySalesChart = () => {
   const data = [
     { name: 'W1', value: 47 },
     { name: 'W2', value: 42 },

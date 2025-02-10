@@ -1,5 +1,4 @@
 // pages/Dashboard.tsx
-import React from 'react';
 import { Row, Col, ProgressBar } from 'react-bootstrap';
 import ReactECharts from 'echarts-for-react';
 import { BsArrowUp } from 'react-icons/bs';
@@ -17,7 +16,7 @@ const salesData = [
   { name: 'Jan 17', value: 70 },
 ];
 
-const TotalOrderChart: React.FC = () => {
+const TotalOrderChart = () => {
   const option = {
     grid: {
       top: '5%',
@@ -85,7 +84,7 @@ const TotalOrderChart: React.FC = () => {
   );
 };
 
-const MarketShareChart: React.FC = () => {
+const MarketShareChart = () => {
   const option = {
     tooltip: {
       trigger: 'item'
@@ -123,7 +122,7 @@ const MarketShareChart: React.FC = () => {
   );
 };
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   return (
     <div>
       <Row className="g-3 mb-3">

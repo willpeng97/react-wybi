@@ -1,8 +1,7 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 
-const ProtectedRoute: React.FC = () => {
+const ProtectedRoute = () => {
   const { isAuthenticated } = useAuth(); // 獲取用戶的登入狀態
 
   if (!isAuthenticated) {

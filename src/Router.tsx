@@ -1,15 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import MainLayout from "./layouts/MainLayout";
-import NotFound from "./pages/NotFound";
+import NotFound from "./auth/NotFound";
 import LoginPage from "./auth/LoginPage";
 import ProtectedRoute from "./auth/ProtectedRoute"; // 導入 ProtectedRoute
-import EqpOverview from "./pages/EqpOverview";
-import ReportQuery from "./pages/ReportQuery";
-import StatusChangeHist from "./pages/StatusChangeHist";
-import { SmartQuery } from "./pages/SmartQuery";
+import ProjectOverview from "./pages/ProjectOverview";
+// import { SmartQuery } from "./pages/SmartQuery";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const SmartQuery = lazy(() => import("./pages/SmartQuery"));
 
 export const router = createBrowserRouter(
   [
@@ -33,28 +32,20 @@ export const router = createBrowserRouter(
               index: true,
             },
             {
-              path: "/eqp-overview",
-              Component: EqpOverview,
+              path: "/project-overview",
+              Component: ProjectOverview,
             },
             {
-              path: "/reports", // 獨立的 /reports 路由
-              Component: () => <div>reports</div>,
+              path: "/query/:SID",
+              Component: (props) => (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <SmartQuery {...props} />
+                </Suspense>
+              )
             },
             {
-              path: "/reports/work-report", // 獨立的 /reports/sales 路由
-              Component: ReportQuery,
-            },
-            {
-              path: "/reports/status-hist", // 獨立的 /reports/traffic 路由
-              Component: StatusChangeHist,
-            },
-            {
-              path: "/reports2/smart-query", // 獨立的 /reports/sales 路由
-              Component: SmartQuery,
-            },
-            {
-              path: "/setting",
-              Component: () => <div>setting</div>,
+              path: "/maintain/:SID",
+              Component: () => <div>maintain</div>,
             },
             {
               path: "*",
