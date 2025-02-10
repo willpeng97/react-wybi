@@ -5,7 +5,7 @@ import { GridTable, TableData } from "../components/global/GridTable";
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
 // import { SmartQueryDemo } from '../mockData/UseMockData';
-import { getGrid } from '../utils/getGridApi';
+import { getGrid } from '../utils/api';
 
 interface Condition {
   field: string;

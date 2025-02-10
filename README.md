@@ -31,6 +31,11 @@ src/
 │   ├── global.css          # 全局樣式
 │   └── ...                 # 添加更多樣式...
 │
+├── utils/                  # 常用涵式
+│   ├── api.ts              # 統一管理api
+│   ├── axiosInstance.ts    # axios實例
+│   └── ...                 # 添加更多...
+│
 ├── App.tsx                 # 主應用組件
 ├── main.tsx                # 入口文件
 └── Router.tsx              # 管理路由
