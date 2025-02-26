@@ -13,7 +13,8 @@ const axiosInstance = axios.create({
 // 可選：添加請求攔截器 (自動附加 Token)
 axiosInstance.interceptors.request.use(
   (config) => {
-    const tokenKey = "WEYU54226552"; // 這裡的 TokenKey 是固定值
+    // const tokenKey = localStorage.getItem("tokenKey");
+    const tokenKey = "WEYU54226552";
 
     config.headers.TokenKey = tokenKey; // 自動附加 TokenKey
 

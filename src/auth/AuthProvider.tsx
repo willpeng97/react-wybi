@@ -30,8 +30,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       const response = await axiosInstance.post("WeyuLogin", requestBody);
       console.log(response)
       if (response.data.result) { // 後端回傳 { result: true/false }
+        console.log(response.data)
         setIsAuthenticated(true);
         localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem("tokenKey", response.data.UserCertInfo[0].TokenKey)
+        localStorage.setItem("tokenExpiry", response.data.UserCertInfo[0].TokenExpiry)
         localStorage.setItem("username", account)
         localStorage.setItem('userInfo', JSON.stringify(response.data.UserInfo));
 
@@ -51,6 +54,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     setIsAuthenticated(false);
     setUserInfo(null);
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('tokenKey');
+    localStorage.removeItem('tokenExpiry');
     localStorage.removeItem('username');
     localStorage.removeItem('userInfo');
   };
